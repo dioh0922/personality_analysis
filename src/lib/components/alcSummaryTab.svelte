@@ -1,0 +1,39 @@
+<script lang="ts">
+  export let beer: any = null;
+</script>
+
+<h3>{beer?.preference_type_definition?.summary}</h3>
+
+<ul>
+  <li>abv:{beer?.preferred_numeric_ranges?.abv}</li>
+  <li>ibu:{beer?.preferred_numeric_ranges?.ibu}</li>
+  <li>srm:{beer?.preferred_numeric_ranges?.srm}</li>
+  <li>type:{beer?.preferred_numeric_ranges?.finish_type}</li>
+</ul>
+
+<div>
+  好評
+  <ul>
+    {#each beer?.evaluation_trends?.high_rating_zone as item}
+      <li>{item}</li>
+    {/each}
+  </ul>
+</div>
+
+<div>
+  条件付き
+  <ul>
+    {#each beer?.evaluation_trends?.conditional_rating as item}
+      <li>{item}</li>
+    {/each}
+  </ul>
+</div>
+
+<div>
+  不評
+  <ul>
+    {#each beer?.evaluation_trends?.low_rating_tendency as item}
+      <li>{item}</li>
+    {/each}
+  </ul>
+</div>

@@ -4,7 +4,24 @@
   import {ref, get } from 'firebase/database'
   import db from '$lib/firebase'
 
+  import Tabs from '$lib/components/tab.svelte'
+  import alcSummary from '$lib/components/alcSummaryTab.svelte'
+  import alcRank from '$lib/components/alcRankTab.svelte'
+
+
   let beer: any | null = null
+  let items = [
+    {
+      label: "alcSummary",
+      value: 1,
+      component: alcSummary
+    },
+    {
+      label: "alcRank",
+      value: 2,
+      component: alcRank
+    }
+  ]
   onMount(async () => {
     const snapshot = await get(ref(db, 'beer'))
     if(snapshot.exists()){
@@ -15,40 +32,4 @@
 
 </script>
 
-
-<h3>{beer?.preference_type_definition?.summary}</h3>
-
-<ul>
-  <li>abv:{beer?.preferred_numeric_ranges?.abv}</li>
-  <li>ibu:{beer?.preferred_numeric_ranges?.ibu}</li>
-  <li>srm:{beer?.preferred_numeric_ranges?.srm}</li>
-  <li>type:{beer?.preferred_numeric_ranges?.finish_type}</li>
-
-</ul>
-
-<div>
-  好評
-  <ul>
-    {#each beer?.evaluation_trends?.high_rating_zone as item}
-      <li>{item}</li>
-    {/each}
-  </ul>
-</div>
-
-<div>
-  条件付き
-  <ul>
-    {#each beer?.evaluation_trends?.conditional_rating as item}
-      <li>{item}</li>
-    {/each}
-  </ul>
-</div>
-
-<div>
-  不評
-  <ul>
-    {#each beer?.evaluation_trends?.low_rating_tendency as item}
-      <li>{item}</li>
-    {/each}
-  </ul>
-</div>
+<Tabs {items} beer={beer}/>
