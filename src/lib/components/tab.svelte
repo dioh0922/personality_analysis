@@ -11,12 +11,12 @@
 <ul>
   {#each items as item}
     <li class={activeTab === item.value ? 'active' : ''} >
-      <span on:click={handleClick(item.value)}>{item.label}</span>
+      <span on:click={() => handleClick(item.value)}>{item.label}</span>
     </li>
   {/each}
 </ul>
 {#each items as item}
-  {#if activeTab == item.value}
+  {#if activeTab === item.value}
     <div class='box'>
       <svelte:component this={item.component} beer={beer}/>
     </div>

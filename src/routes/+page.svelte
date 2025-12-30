@@ -12,12 +12,12 @@
   let beer: any | null = null
   let items = [
     {
-      label: "alcSummary",
+      label: "ビール傾向",
       value: 1,
       component: alcSummary
     },
     {
-      label: "alcRank",
+      label: "ビール順位",
       value: 2,
       component: alcRank
     }
@@ -26,7 +26,6 @@
     const snapshot = await get(ref(db, 'beer'))
     if(snapshot.exists()){
       beer = snapshot.val()
-      console.log(snapshot.val())
     }
   })
 
