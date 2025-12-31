@@ -5,7 +5,8 @@
   const handleClick = (tabVal: any): undefined => {
     activeTab = tabVal;
   };
-  
+  const handleRankSave = (e: any) => {
+  }
 </script>
 
 <ul>
@@ -18,7 +19,7 @@
 {#each items as item}
   {#if activeTab === item.value}
     <div class='box'>
-      <svelte:component this={item.component} beer={beer}/>
+      <svelte:component rankSave={handleRankSave} this={item.component} beer={beer}/>
     </div>
   {/if}
 {/each}

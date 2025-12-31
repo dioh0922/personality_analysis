@@ -1,49 +1,48 @@
 <script lang="ts">
-  export let beer: any = null;
-  let rankData: {id: number, label: string}[] = [];
+  let { rankSave, beer } = $props();
+  let rankData = $state<{id: number, label: string}[]>([]);
 
-  $: rankData = beer?.ranking
-  ? beer.ranking.map((item: string, index: number) => {
-    return {id: index, label:item}
-  }):[];
+  $effect(() => {
+    rankData = beer?.ranking 
+    ? beer.ranking.map((item: string, index: number) => {
+        return {id: index, label:item}
+      })
+    : [];
 
+    if (
+      draggingItemIndex != null &&
+      hoveredItemIndex != null &&
+      draggingItemIndex != hoveredItemIndex
+    ) {
+      // swap items
+      const next = [...rankData];
+      [next[draggingItemIndex], next[hoveredItemIndex]] = [
+        next[hoveredItemIndex],
+        next[draggingItemIndex],
+      ];
 
-  let mouseYCoordinate: any = null; // pointer y coordinate within client
-  let distanceTopGrabbedVsPointer: any = null;
+      rankData = next;
 
-    let draggingItem: any = null;
-    let draggingItemId: any = null;
-    let draggingItemIndex: any = null;
-
-    let hoveredItemIndex: any = null;
-
-    $: {
-        // prevents the ghost flickering at the top
-        if (mouseYCoordinate == null || mouseYCoordinate == 0) {
-            // showGhost = false;
-        }
+      // balance
+      draggingItemIndex = hoveredItemIndex;
     }
 
-    $: {
-        if (
-            draggingItemIndex != null &&
-            hoveredItemIndex != null &&
-            draggingItemIndex != hoveredItemIndex
-        ) {
-            // swap items
-            [rankData[draggingItemIndex], rankData[hoveredItemIndex]] = [
-                rankData[hoveredItemIndex],
-                rankData[draggingItemIndex],
-            ];
+  });
 
-            // balance
-            draggingItemIndex = hoveredItemIndex;
-        }
-    }
+  let mouseYCoordinate = $state<any>(null); // pointer y coordinate within client
+  let distanceTopGrabbedVsPointer = $state<any>(null);
 
-    let container = null;
+  let draggingItem = $state<any>(null);
+  let draggingItemId = $state<any>(null);
+  let draggingItemIndex = $state<any>(null);
+
+  let hoveredItemIndex = $state<any>(null);
+
+  let container = $state<any>(null);
 
 </script>
+
+<button on:click={() => rankSave(rankData)}>保存</button>
 
 <div class="container" bind:this={container}>
   {#if mouseYCoordinate}
@@ -59,25 +58,6 @@
     class="item {draggingItemId == item?.id ? 'invisible': ''}"
     style="background: {item?.label};"
     draggable="true"
-    on:dragstart={(e:any) => {
-      mouseYCoordinate = e.clientY;
-      draggingItem = item;
-      draggingItemIndex = index;
-      draggingItemId = item.id;
-      distanceTopGrabbedVsPointer = e.target.getBoundingClientRect().y - e.clientY;
-    }}
-    on:drag={(e:any) => {
-      mouseYCoordinate = e.clientY;
-    }}
-    on:dragover={(e:any) => {
-      hoveredItemIndex = index;
-    }}
-    on:dragend={(e:any) => {
-      mouseYCoordinate = null;
-      draggingItem = null;
-      draggingItemIndex = null;
-      draggingItemId = null;
-    }}
     >
     {item?.id}位：{item?.label}
     </div>
