@@ -1,2 +1,4 @@
 .env
 /node_modules
+app/src/environments/environment.ts
+app/src/environments/environment.development.ts
