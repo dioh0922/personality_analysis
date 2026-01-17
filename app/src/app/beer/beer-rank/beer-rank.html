@@ -1,0 +1,10 @@
+<div class="container" #container>
+  @for (item of rankData; track $index) {
+    <div
+    class="item"
+    draggable="true"
+    >
+    {{ item?.id }}位：{{ item?.label }}
+    </div>
+  }
+</div>

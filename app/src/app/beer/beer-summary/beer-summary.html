@@ -1,0 +1,35 @@
+<h3>{{ data?.preference_type_definition?.summary }}</h3>
+
+<ul>
+  <li>abv: {{ data?.preferred_numeric_ranges?.abv }}</li>
+  <li>ibu: {{ data?.preferred_numeric_ranges?.ibu }}</li>
+  <li>srm: {{ data?.preferred_numeric_ranges?.srm }}</li>
+  <li>type: {{ data?.preferred_numeric_ranges?.finish_type }}</li>
+</ul>
+
+<div>
+  好評
+  <ul>
+    @for (item of data?.evaluation_trends?.high_rating_zone; track $index) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</div>
+
+<div>
+  条件付き
+  <ul>
+    @for (item of data?.evaluation_trends?.conditional_rating; track $index) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</div>
+
+<div>
+  不評
+  <ul>
+    @for (item of data?.evaluation_trends?.low_rating_tendency; track $index) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</div>
