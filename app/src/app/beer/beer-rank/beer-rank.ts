@@ -7,5 +7,16 @@ import { Component, Input } from '@angular/core';
   styles: ``,
 })
 export class BeerRank {
-  @Input() rankData: any;
+  protected formattedData: { rank: number; label: string }[] = [];
+
+  @Input()
+  set rankData(value: any) {
+    if (Array.isArray(value)) {
+      this.formattedData = value.filter(item => item).map((item, index) => {
+        return { rank: index + 1, label: item };
+      });
+    } else {
+      this.formattedData = [];
+    }
+  }
 }
