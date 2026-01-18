@@ -1,10 +1,12 @@
-<div class="container" #container>
-  @for (item of formattedData; track $index) {
-    <div
-    class="item"
-    draggable="true"
-    >
-    {{ item?.rank }}位：{{ item?.label }}
-    </div>
+@if (isEdit) {
+<button (click)="updateOrder()">
+  保存
+</button>
+}
+<mat-list cdkDropList (cdkDropListDropped)="drop($event)">
+  @for (item of formattedData; track item) {
+    <mat-list-item cdkDrag>
+      {{ item?.id }}位：{{ item?.label }}
+    </mat-list-item>
   }
-</div>
+</mat-list>
