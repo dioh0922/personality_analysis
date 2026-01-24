@@ -5,10 +5,11 @@ import { environment } from '../../environments/environment';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BeerSummary } from './beer-summary/beer-summary';
 import { BeerRank } from './beer-rank/beer-rank';
+import { BeerGraph } from './beer-graph/beer-graph';
 
 @Component({
   selector: 'app-beer',
-  imports: [MatTabsModule, BeerSummary, BeerRank],
+  imports: [MatTabsModule, BeerSummary, BeerRank, BeerGraph],
   templateUrl: './beer.html',
   styleUrl: './beer.css',
 })

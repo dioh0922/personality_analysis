@@ -2,6 +2,9 @@
   <mat-tab label="Summary">
     <beer-summary [data]="data()"></beer-summary>
   </mat-tab>
+  <mat-tab label="Graph">
+    <beer-graph [data]="data()?.waveform"></beer-graph>
+  </mat-tab>
   <mat-tab label="Rank">
     <beer-rank [rankData]="data()?.ranking"></beer-rank>
   </mat-tab>
