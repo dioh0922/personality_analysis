@@ -1,35 +1,41 @@
-<h3>{{ data?.preference_type_definition?.summary }}</h3>
 
-<ul>
-  <li>abv: {{ data?.preferred_numeric_ranges?.abv }}</li>
-  <li>ibu: {{ data?.preferred_numeric_ranges?.ibu }}</li>
-  <li>srm: {{ data?.preferred_numeric_ranges?.srm }}</li>
-  <li>type: {{ data?.preferred_numeric_ranges?.finish_type }}</li>
-</ul>
+<mat-grid-list cols="12" rowHeight="100px">
+  <mat-grid-tile [colspan]="12" [rowspan]="1">{{ data?.preference_type_definition?.summary }}</mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="1">abv: {{ data?.preferred_numeric_ranges?.abv }}</mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="1">ibu: {{ data?.preferred_numeric_ranges?.ibu }}</mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="1">srm: {{ data?.preferred_numeric_ranges?.srm }}</mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="1">type: {{ data?.preferred_numeric_ranges?.finish_type }}</mat-grid-tile>
 
-<div>
-  好評
-  <ul>
-    @for (item of data?.evaluation_trends?.high_rating_zone; track $index) {
-      <li>{{ item }}</li>
-    }
-  </ul>
-</div>
+  <mat-grid-tile [colspan]="4" [rowspan]="4">
+    <div>
+      <h3>好評</h3>
+      <mat-list role="list">
+        @for (item of data?.evaluation_trends?.high_rating_zone; track $index) {
+          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+        }
+      </mat-list>
+    </div>
+  </mat-grid-tile>
 
-<div>
-  条件付き
-  <ul>
-    @for (item of data?.evaluation_trends?.conditional_rating; track $index) {
-      <li>{{ item }}</li>
-    }
-  </ul>
-</div>
+  <mat-grid-tile [colspan]="4" [rowspan]="4">
+    <div>
+      <h3>条件付き</h3>
+      <mat-list role="list">
+        @for (item of data?.evaluation_trends?.conditional_rating; track $index) {
+          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+        }
+      </mat-list>
+    </div>
+  </mat-grid-tile>
 
-<div>
-  不評
-  <ul>
-    @for (item of data?.evaluation_trends?.low_rating_tendency; track $index) {
-      <li>{{ item }}</li>
-    }
-  </ul>
-</div>
+  <mat-grid-tile [colspan]="4" [rowspan]="4">
+    <div>
+      <h3>不評</h3>
+      <mat-list role="list">
+        @for (item of data?.evaluation_trends?.low_rating_tendency; track $index) {
+          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+        }
+      </mat-list>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
