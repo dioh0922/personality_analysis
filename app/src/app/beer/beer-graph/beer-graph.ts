@@ -7,6 +7,14 @@ Chart.register(...registerables);
   selector: 'beer-graph',
   imports: [],
   templateUrl: './beer-graph.html',
+  styles: [`
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+    }
+  `]
 })
 export class BeerGraph implements AfterViewInit, OnChanges {
   context!: CanvasRenderingContext2D;
@@ -29,6 +37,10 @@ export class BeerGraph implements AfterViewInit, OnChanges {
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
       }
     });
     this.updateChart();
