@@ -1,11 +1,10 @@
-import { Component, OnInit, signal, inject, NgZone } from '@angular/core';
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getDatabase, ref, onValue } from 'firebase/database';
-import { environment } from '../../environments/environment';
+import { Component, OnInit, signal, NgZone } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BeerSummary } from './beer-summary/beer-summary';
 import { BeerRank } from './beer-rank/beer-rank';
 import { BeerGraph } from './beer-graph/beer-graph';
+import { Database, ref, onValue } from '@angular/fire/database';
+
 
 @Component({
   selector: 'app-beer',
@@ -15,14 +14,15 @@ import { BeerGraph } from './beer-graph/beer-graph';
 })
 export class Beer implements OnInit {
   protected data = signal<any>(null);
-  private ngZone = inject(NgZone);
+
+  constructor(
+    private db: Database,
+    private ngZone: NgZone
+  ) {
+  }
 
   ngOnInit() {
-    // アプリが未初期化の場合のみ初期化（二重初期化防止）
-    const app = getApps().length === 0 ? initializeApp(environment.firebase) : getApp();
-    const db = getDatabase(app);
-
-    const dbRef = ref(db, '/beer');
+    const dbRef = ref(this.db, '/beer');
 
     onValue(dbRef, (snapshot) => {
       const val = snapshot.val();

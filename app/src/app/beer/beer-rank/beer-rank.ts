@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
+/*
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getDatabase, ref, set } from 'firebase/database';
 import { environment } from '../../../environments/environment';
+*/
+import { Database, ref, set } from '@angular/fire/database';
 import { MatListModule } from '@angular/material/list';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -15,9 +18,12 @@ export class BeerRank {
   protected formattedData: { id: number; label: string }[] = [];
   protected isEdit = false;
 
+  constructor(
+    private db: Database,
+  ) {
+  }
+
   updateOrder = () => {
-    const app = getApps().length === 0 ? initializeApp(environment.firebase) : getApp();
-    const db = getDatabase(app);
     const data = this.formattedData.map((item, index) => {
       // 画面表示用の順位を更新
       item.id = index + 1;
@@ -25,7 +31,7 @@ export class BeerRank {
       return { id: index, label: item.label };
     });
 
-    const rankDbRef = ref(db, '/beer/ranking');
+    const rankDbRef = ref(this.db, '/beer/ranking');
 
     set(rankDbRef, data);
   }
