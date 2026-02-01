@@ -1,9 +1,4 @@
 import { Component, Input } from '@angular/core';
-/*
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getDatabase, ref, set } from 'firebase/database';
-import { environment } from '../../../environments/environment';
-*/
 import { Database, ref, set } from '@angular/fire/database';
 import { MatListModule } from '@angular/material/list';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
