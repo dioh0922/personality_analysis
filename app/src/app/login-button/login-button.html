@@ -1,4 +1,4 @@
-@if (user$ | async) {
+@if (authService.isLogin()) {
   <button mat-stroked-button color="warn" (click)="logout()">ログアウト</button>
 } @else {
   <button mat-raised-button color="primary" (click)="login()">ログイン</button>

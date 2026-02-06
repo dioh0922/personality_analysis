@@ -15,13 +15,15 @@ import { AuthService } from '../services/auth-service';
 export class LoginButton {
   constructor(
     private auth: Auth,
-    private authService: AuthService,
+    public authService: AuthService,
   ) {
   }
 
   login() {
+    this.authService.login();
   }
 
   logout() {
+    this.authService.logout();
   }
 }
