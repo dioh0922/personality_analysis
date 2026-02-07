@@ -1,4 +1,4 @@
-import { Injectable, inject, computed, Signal } from '@angular/core';
+import { Injectable, computed, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Auth, GoogleAuthProvider, signInWithPopup, signOut, user, User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
@@ -7,10 +7,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private auth: Auth = inject(Auth);
-  public readonly user$: Observable<User | null> = user(this.auth);
-  public readonly currentUser: Signal<User | null> = toSignal(this.user$, { initialValue: null });
-  public readonly isLoggedIn: Signal<boolean> = computed(() => !!this.currentUser());
+  public readonly user$: Observable<User | null>;
+  public readonly currentUser: Signal<User | null>;
+  public readonly isLoggedIn: Signal<boolean>;
+
+  constructor(private auth: Auth) {
+    this.user$ = user(this.auth);
+    this.currentUser = toSignal(this.user$, { initialValue: null });
+    this.isLoggedIn = computed(() => !!this.currentUser());
+  }
 
   isLogin(){
     return this.isLoggedIn();
@@ -22,7 +27,6 @@ export class AuthService {
 
   login() {
     signInWithPopup(this.auth, new GoogleAuthProvider());
-    console.log(this.currentUser());
   }
 
   logout() {
