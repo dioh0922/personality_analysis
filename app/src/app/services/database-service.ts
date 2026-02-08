@@ -1,6 +1,6 @@
 
 import { Injectable, NgZone, signal } from '@angular/core';
-import { Database, ref, onValue } from '@angular/fire/database';
+import { Database, ref, onValue, set } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class DatabaseService {
     private ngZone: NgZone
   ) {
   }
-  loadData(){
+  loadData = () => {
     const dbRef = ref(this.db, '/beer');
 
     onValue(dbRef, (snapshot) => {
@@ -22,5 +22,10 @@ export class DatabaseService {
       });
     });
     return this.data;
+  }
+
+  updateRankOrder = async (data: Array<any>) => {
+    const rankDbRef = ref(this.db, '/beer/ranking');
+    await set(rankDbRef, data);
   }
 }

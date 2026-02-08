@@ -1,24 +1,48 @@
 import { Component, Input } from '@angular/core';
-import { Database, ref, set } from '@angular/fire/database';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DatabaseService } from '../../services/database-service';
 
 @Component({
   selector: 'beer-rank',
-  imports: [DragDropModule, MatListModule],
+  imports: [
+    DragDropModule,
+    MatButtonModule,
+    MatListModule,
+    MatSnackBarModule
+  ],
   templateUrl: './beer-rank.html',
-  styles: ``,
+  styles: `
+    .list-container {
+      display: flex;
+      flex-direction: column;
+      height: 75vh;
+    }
+    .fixed-row {
+      flex-shrink: 0;
+      background: white;
+      z-index: 2;
+      border-bottom: 1px solid #ddd;
+    }
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+    }
+  `,
 })
 export class BeerRank {
   protected formattedData: { id: number; label: string }[] = [];
   protected isEdit = false;
 
   constructor(
-    private db: Database,
+    private databaseService: DatabaseService,
+    private snackBar: MatSnackBar
   ) {
   }
 
-  updateOrder = () => {
+  updateOrder = async () => {
     const data = this.formattedData.map((item, index) => {
       // 画面表示用の順位を更新
       item.id = index + 1;
@@ -26,12 +50,12 @@ export class BeerRank {
       return { id: index, label: item.label };
     });
 
-    const rankDbRef = ref(this.db, '/beer/ranking');
-
-    set(rankDbRef, data);
+    this.isEdit = false;
+    await this.databaseService.updateRankOrder(data);
+    this.snackBar.open('update success', 'close');
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop = (event: CdkDragDrop<string[]>) => {
     this.isEdit = true;
     moveItemInArray(this.formattedData, event.previousIndex, event.currentIndex);
   }
