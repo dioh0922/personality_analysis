@@ -19,8 +19,9 @@ export class LoginButton {
   ) {
   }
 
-  login() {
-    this.authService.login();
+  async login() {
+    await this.authService.login();
+    window.location.reload();
   }
 
   logout() {
