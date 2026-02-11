@@ -14,7 +14,18 @@
     cdkDropList (cdkDropListDropped)="drop($event)">
     @for (item of formattedData; track item) {
       <mat-list-item cdkDrag>
-        {{ item?.id }}位：{{ item?.label }}
+        <div matListItemTitle>
+          {{ item?.id }}位：{{ item?.label }}
+        </div>
+
+        <div matListItemLine>
+          <button
+            style="margin-top: 15px;"
+            (click)="openDialog(item); $event.stopPropagation()"
+          >
+            <mat-icon style="font-size: 16px;">add</mat-icon>
+          </button>
+        </div>
       </mat-list-item>
     }
   </mat-list>

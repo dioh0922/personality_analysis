@@ -2,8 +2,12 @@ import { Component, Input } from '@angular/core';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DatabaseService } from '../../services/database-service';
+import { AddRankDialog } from './add-rank-dialog/add-rank-dialog';
 
 @Component({
   selector: 'beer-rank',
@@ -11,7 +15,9 @@ import { DatabaseService } from '../../services/database-service';
     DragDropModule,
     MatButtonModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    MatDialogModule
   ],
   templateUrl: './beer-rank.html',
   styles: `
@@ -38,7 +44,8 @@ export class BeerRank {
 
   constructor(
     private databaseService: DatabaseService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
   }
 
@@ -58,6 +65,12 @@ export class BeerRank {
   drop = (event: CdkDragDrop<string[]>) => {
     this.isEdit = true;
     moveItemInArray(this.formattedData, event.previousIndex, event.currentIndex);
+  }
+
+  openDialog = (item: any) => {
+    this.dialog.open(AddRankDialog, {
+      data: item?.id  + 1
+    });
   }
 
   @Input()
