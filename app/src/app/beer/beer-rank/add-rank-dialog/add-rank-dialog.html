@@ -2,10 +2,10 @@
 <mat-dialog-content>
   <mat-form-field>
     <mat-label>ラベル</mat-label>
-    <input matInput [(ngModel)]="data.label">
+    <input matInput [(ngModel)]="label">
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">キャンセル</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>保存</button>
+  <button mat-button (click)="onSave()" [mat-dialog-close]="data" cdkFocusInitial>保存</button>
 </mat-dialog-actions>

@@ -67,9 +67,32 @@ export class BeerRank {
     moveItemInArray(this.formattedData, event.previousIndex, event.currentIndex);
   }
 
+  deleteItem = (item: any) => {
+    this.formattedData.splice(item.id - 1, 1);
+    this.reorderData();
+    this.isEdit = true;
+  }
+
   openDialog = (item: any) => {
-    this.dialog.open(AddRankDialog, {
+    const dialogRef = this.dialog.open(AddRankDialog, {
       data: item?.id  + 1
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        // 挿入位置を計算 (idは1始まりのため -1)
+        const insertIndex = result.id - 1;
+
+        this.formattedData.splice(insertIndex, 0, { id: result.id, label: result.label });
+        this.reorderData();
+        this.isEdit = true;
+      }
+    });
+  }
+
+  private reorderData = () => {
+    // IDを再採番して整合性を保つ
+    this.formattedData.forEach((item, index) => {
+      item.id = index + 1;
     });
   }
 

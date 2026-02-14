@@ -17,13 +17,19 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './add-rank-dialog.html',
 })
 export class AddRankDialog {
+  public label = '';
+
   constructor(
     private dialogRef: MatDialogRef<AddRankDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ){
   }
 
-  onNoClick(): void {
+  onNoClick = () => {
     this.dialogRef.close();
+  }
+
+  onSave = () => {
+    this.dialogRef.close({id: this.data, label: this.label});
   }
 }

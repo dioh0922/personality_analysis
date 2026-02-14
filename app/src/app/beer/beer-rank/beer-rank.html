@@ -16,6 +16,12 @@
       <mat-list-item cdkDrag>
         <div matListItemTitle>
           {{ item?.id }}位：{{ item?.label }}
+          <button
+            (click)="deleteItem(item); $event.stopPropagation()"
+          >
+            <mat-icon style="padding-top: 10px; font-size: 16px;">delete</mat-icon>
+          </button>
+
         </div>
 
         <div matListItemLine>
