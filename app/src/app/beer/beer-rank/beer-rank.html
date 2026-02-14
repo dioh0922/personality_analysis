@@ -1,0 +1,39 @@
+<div class="list-container">
+  <mat-list class="fixed-row">
+    <mat-list-item>
+      @if (isEdit) {
+        <button mat-stroked-button color="warn" (click)="updateOrder()">
+          保存
+        </button>
+      }
+    </mat-list-item>
+  </mat-list>
+
+  <mat-list
+    class="scroll-area"
+    cdkDropList (cdkDropListDropped)="drop($event)">
+    @for (item of formattedData; track item) {
+      <mat-list-item cdkDrag>
+        <div matListItemTitle>
+          {{ item?.id }}位：{{ item?.label }}
+          <button
+            (click)="deleteItem(item); $event.stopPropagation()"
+          >
+            <mat-icon style="padding-top: 10px; font-size: 16px;">delete</mat-icon>
+          </button>
+
+        </div>
+
+        <div matListItemLine>
+          <button
+            style="margin-top: 15px;"
+            (click)="openDialog(item); $event.stopPropagation()"
+          >
+            <mat-icon style="font-size: 16px;">add</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    }
+  </mat-list>
+
+</div>
