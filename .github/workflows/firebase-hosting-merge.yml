@@ -19,7 +19,7 @@ jobs:
 
       #  Angular build
       - name: Install and Build
-        run: cat .env && npm ci && npm run build
+        run: cat ../.env && npm ci && npm run build
         working-directory: app
 
       #  Deploy
