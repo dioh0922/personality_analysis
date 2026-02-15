@@ -13,9 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_ANALYSIS_B48E8 }}
-          projectId: personal-analysis-b48e8
+
+      #  .env を生成
+      - name: Create .env file
+        run: echo "${{ secrets.APP_ENV }}" > app/.env
+
+      #  Angular build
+      - name: Install and Build
+        run: npm ci && npm run build
+        working-directory: app
