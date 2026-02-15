@@ -15,11 +15,11 @@ jobs:
 
       #  .env を生成
       - name: Create .env file
-        run: echo "${{ secrets.APP_ENV }}" > app/.env
+        run: echo "${{ secrets.APP_ENV }}" > .env
 
       #  Angular build
       - name: Install and Build
-        run: npm ci && npm run build
+        run: cat ../.env && npm ci && npm run build
         working-directory: app
 
       #  Deploy
