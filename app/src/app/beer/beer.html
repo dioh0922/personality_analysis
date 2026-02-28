@@ -3,7 +3,7 @@
     <beer-summary [data]="data()"></beer-summary>
   </mat-tab>
   <mat-tab label="Graph">
-    <beer-graph [data]="data()?.waveform"></beer-graph>
+    <beer-graph [hist]="data()?.waveform" [tendency]="data()?.tendency_graph"></beer-graph>
   </mat-tab>
   <mat-tab label="Rank">
     <beer-rank [rankData]="data()?.ranking"></beer-rank>
