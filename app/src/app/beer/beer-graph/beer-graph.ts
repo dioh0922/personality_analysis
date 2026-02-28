@@ -40,7 +40,7 @@ Chart.register(
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       width: 100%;
-      min-height: 350px;
+      height: 350px;
     }
 
     .page {
@@ -110,10 +110,6 @@ export class BeerGraph implements AfterViewInit, OnChanges {
         datasets: [{
           label: '',
           data: [
-            {x: 1, y: 3},
-            {x: 2, y: 5},
-            {x: 3, y: 2},
-            {x: 4, y: 6}
           ],
           pointRadius: 6
         }]
@@ -138,7 +134,6 @@ export class BeerGraph implements AfterViewInit, OnChanges {
       this.updateChart();
     }
     if(changes['tendency']){
-      console.log(this.tendency);
       this.updateTendency();
     }
   }
@@ -174,8 +169,39 @@ export class BeerGraph implements AfterViewInit, OnChanges {
   private updateTendency(){
     const data = this.tendency?.plottable_elements.map((item: any) => {return{x:item.x, y:item.y}});
     if (this.tendencyChart && Array.isArray(this.tendency?.plottable_elements)) {
-      this.tendencyChart.data.datasets[0].data = this.tendency?.plottable_elements.map((item: any) => {return{x:item.x, y:item.y}});
-      this.tendencyChart.update();
+      const points = this.tendency?.plottable_elements.map((item: any) => ({
+        x: item.x,
+        y: item.y,
+        label: item.description
+      })) ?? [];
+      this.tendencyChart.options.plugins = {
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const p = ctx.raw as any;
+              return `${p.label}`;
+            }
+          }
+        }
+      };
+
+    this.tendencyChart.data.datasets[0].data = points;
+
+    const max = Math.max(
+      ...points.map((p: any) => Math.abs(p.x)),
+      ...points.map((p: any) => Math.abs(p.y)),
+      1 // 0除け（全部0の時）
+    ) + 10;
+
+    if(this.tendencyChart.options.scales){
+      this.tendencyChart.options.scales = {
+        x: { min: -max, max: max },
+        y: { min: -max, max: max }
+      };
+    }
+
+    // 再描画
+    this.tendencyChart.update();
     }
   }
 }
