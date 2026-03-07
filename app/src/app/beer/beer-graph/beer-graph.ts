@@ -109,12 +109,45 @@ export class BeerGraph implements AfterViewInit, OnChanges {
       data: {
         datasets: [{
           label: '',
-          data: [
-          ],
+          data: [],
           pointRadius: 6
         }]
       },
+      plugins: [{
+        id: 'groupingCircle',
+        beforeDraw: (chart: any, args: any, options: any) => {
+          const points = options.points;
+          if (!points || points.length === 0) return;
+          const ctx = chart.ctx;
+          const xAxis = chart.scales['x'];
+          const yAxis = chart.scales['y'];
+          const xs = points.map((p: any) => p.x);
+          const ys = points.map((p: any) => p.y);
+          const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+          const cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+          const cpx = xAxis.getPixelForValue(cx);
+          const cpy = yAxis.getPixelForValue(cy);
+          let maxR = 0;
+          points.forEach((p: any) => {
+            const dx = xAxis.getPixelForValue(p.x) - cpx;
+            const dy = yAxis.getPixelForValue(p.y) - cpy;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d > maxR) maxR = d;
+          });
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cpx, cpy, maxR + 20, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(75, 192, 192, 0.2)';
+          ctx.strokeStyle = 'rgb(75, 192, 192)';
+          ctx.lineWidth = 1;
+          ctx.fill();
+          ctx.stroke();
+          ctx.restore();
+        }
+      }],
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             type: 'linear',
@@ -169,39 +202,49 @@ export class BeerGraph implements AfterViewInit, OnChanges {
   private updateTendency(){
     const data = this.tendency?.plottable_elements.map((item: any) => {return{x:item.x, y:item.y}});
     if (this.tendencyChart && Array.isArray(this.tendency?.plottable_elements)) {
-      const points = this.tendency?.plottable_elements.map((item: any) => ({
-        x: item.x,
-        y: item.y,
-        label: item.description
-      })) ?? [];
+      const points = this.tendency?.plottable_elements.map((item: any) => {
+        const labelParts = [item.description, ...(item.common_marketing_phrases || [])];
+        return { ...item, label: labelParts.join('\n') };
+      }) ?? [];
       this.tendencyChart.options.plugins = {
         tooltip: {
+          filter: (tooltipItem) => tooltipItem.datasetIndex === 0,
           callbacks: {
             label: (ctx) => {
               const p = ctx.raw as any;
-              return `${p.label}`;
+              return p.label.split('\n');
             }
           }
         }
       };
 
-    this.tendencyChart.data.datasets[0].data = points;
+      const withinRange = this.tendency?.plottable_elements
+        .filter((item: any) => item?.within_preference_range ?? false)
+        .map((item: any) => ({
+          x: item.x,
+          y: item.y
+        })) ?? [];
 
-    const max = Math.max(
-      ...points.map((p: any) => Math.abs(p.x)),
-      ...points.map((p: any) => Math.abs(p.y)),
-      1 // 0除け（全部0の時）
-    ) + 10;
+      this.tendencyChart.data.datasets[0].data = points;
+      if (this.tendencyChart.options.plugins) {
+        (this.tendencyChart.options.plugins as any).groupingCircle = { points: withinRange };
+      }
 
-    if(this.tendencyChart.options.scales){
-      this.tendencyChart.options.scales = {
-        x: { min: -max, max: max },
-        y: { min: -max, max: max }
-      };
-    }
+      const max = Math.max(
+        ...points.map((p: any) => Math.abs(p.x)),
+        ...points.map((p: any) => Math.abs(p.y)),
+        1 // 0除け（全部0の時）
+      ) + 10;
 
-    // 再描画
-    this.tendencyChart.update();
+      if(this.tendencyChart.options.scales){
+        this.tendencyChart.options.scales = {
+          x: { min: -max, max: max },
+          y: { min: -max, max: max }
+        };
+      }
+
+      // 再描画
+      this.tendencyChart.update();
     }
   }
 }
