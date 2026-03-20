@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="discussion-grid">
+    <div class="input-row">
+      <mat-form-field>
+        <mat-label>議題</mat-label>
+        <textarea matInput rows="4" cols="20" [(ngModel)]="prompt"></textarea>
+      </mat-form-field>
+      <button (click)="submit()" mat-raised-button color="primary" class="submit-btn">
+        <mat-icon style="font-size: 16px;">send</mat-icon>
+      </button>
+    </div>
+
+    <mat-card *ngFor="let card of persona" class="card">
+      <mat-card-header>
+        <mat-card-title
+          [ngClass]="{
+            'agree': card.agree,
+            'disagree': !card.agree
+          }"
+        >
+          {{ card.agree ? '賛成' : '反対' }}
+          <mat-icon>
+            {{ card.agree ? 'thumb_up' : 'thumb_down' }}
+          </mat-icon>
+        </mat-card-title>
+      </mat-card-header>
+        <mat-card-content *ngFor="let item of card.summary">
+          <div class="multiline">
+            {{ item }}
+          </div>
+        </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
+
+<div class="loading-overlay" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
