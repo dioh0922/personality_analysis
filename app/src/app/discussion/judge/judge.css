@@ -1,0 +1,16 @@
+.agree {
+  color: #2e7d32;   /* 緑 */
+}
+
+.disagree {
+  color: #c62828;   /* 赤 */
+}
+
+.card {
+  min-width: 0;
+}
+
+.multiline {
+  white-space: pre-line;
+}
+

@@ -5,10 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { LoginButton } from './login-button/login-button';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
+    RouterModule,
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,

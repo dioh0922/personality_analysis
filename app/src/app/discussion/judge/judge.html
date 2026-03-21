@@ -1,0 +1,22 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title
+      [ngClass]="{
+        'agree': agree,
+        'disagree': !agree
+      }"
+    >
+      {{ agree ? '賛成' : '反対' }}
+      <mat-icon>
+        {{ agree ? 'thumb_up' : 'thumb_down' }}
+      </mat-icon>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content *ngFor="let item of summaryList">
+    <div class="multiline">
+      {{ item }}
+    </div>
+  </mat-card-content>
+
+</mat-card>
