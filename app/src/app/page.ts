@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { LoginButton } from './login-button/login-button';
+import { DumpBeer } from './dump/dump-beer/dump-beer';
+import { DumpDiscussion } from './dump/dump-discussion/dump-discussion';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -16,7 +18,9 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
-    LoginButton
+    LoginButton,
+    DumpBeer,
+    DumpDiscussion
   ],
   templateUrl: './page.html',
 })

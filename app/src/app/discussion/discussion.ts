@@ -3,12 +3,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Judge } from './judge/judge';
-
+import { DatabaseService } from '../services/database-service';
 import axios from 'axios';
 
 
@@ -20,6 +21,7 @@ import axios from 'axios';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatSnackBarModule,
     MatProgressSpinnerModule,
     CommonModule,
     FormsModule,
@@ -33,6 +35,10 @@ export class Discussion {
   protected persona: {agree: boolean, summary: string[]}[] = [];
   protected judge: {agree: boolean | null, summary: string | null} = {agree:null, summary:null}
   protected isLoading: boolean = false;
+  constructor(
+    private databaseService: DatabaseService,
+    private snackBar: MatSnackBar
+  ) {}
 
   submit = () => {
     this.isLoading = true;
@@ -48,5 +54,25 @@ export class Discussion {
     }).finally(() => {
         this.isLoading = false;
     });
+  }
+
+  saveDiscussion = () => {
+    if(this.judge.agree !== null){
+      const data  = {
+        prompt: this.prompt,
+        persona: this.persona,
+        judge: this.judge
+      }
+      this.isLoading = true;
+      this.databaseService.saveDiscussion(data)
+        .then(() => {
+          this.snackBar.open('Discussion saved', 'close');
+        })
+        .catch((error) => {
+          this.snackBar.open(error.message, 'close');
+        }).finally(() => {
+          this.isLoading = false;
+        });
+    }
   }
 }
