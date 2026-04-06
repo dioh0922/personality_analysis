@@ -20,6 +20,8 @@ export class Beer implements OnInit {
   }
 
   ngOnInit() {
-    this.data = this.databaseService.loadData();
+    this.databaseService.loadBeer().then((res) => {
+      this.data.set(res);
+    });
   }
 }

@@ -5,12 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'dump-beer',
+  selector: 'dump-discussion',
   imports: [MatIconModule, MatButtonModule],
-  templateUrl: './dump-beer.html',
-  styleUrl: './dump-beer.css',
+  templateUrl: './dump-discussion.html',
+  styleUrl: './dump-discussion.css',
 })
-export class DumpBeer {
+export class DumpDiscussion {
 
   constructor(
     private databaseService: DatabaseService,
@@ -19,8 +19,8 @@ export class DumpBeer {
   }
 
   dumpData = () => {
-    this.databaseService.loadBeer().then((res) => {
-      this.jsonService.downloadJson(res, 'beer-data.json');
+    this.databaseService.loadDiscussion().then((res) => {
+      this.jsonService.downloadJson(res, 'discussion-data.json');
     });
   }
 }

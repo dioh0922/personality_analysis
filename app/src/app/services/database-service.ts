@@ -12,6 +12,16 @@ export class DatabaseService {
     private ngZone: NgZone
   ) {
   }
+
+  loadBeer = (): Promise<any> => {
+    const dbRef = ref(this.db, '/beer');
+    return new Promise((resolve) => {
+      onValue(dbRef, (snapshot) => {
+        resolve(snapshot.val());
+      }, { onlyOnce: true });
+    });
+  }
+
   loadData = () => {
     const dbRef = ref(this.db, '/beer');
 
@@ -42,5 +52,14 @@ export class DatabaseService {
 
     const discussionItemRef = ref(this.db, `/discussion/${timestampKey}`);
     await set(discussionItemRef, data);
+  }
+
+  loadDiscussion = (): Promise<any> => {
+    const dbRef = ref(this.db, '/discussion');
+    return new Promise((resolve) => {
+      onValue(dbRef, (snapshot) => {
+        resolve(snapshot.val());
+      }, { onlyOnce: true });
+    });
   }
 }
