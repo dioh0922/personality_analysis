@@ -10,6 +10,11 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/beer" >ビール</button>
     <button mat-menu-item routerLink="/discussion" >脳内会議</button>
+    <button mat-menu-item [matMenuTriggerFor]="evacuationMenu">退避</button>
+  </mat-menu>
+  <mat-menu #evacuationMenu="matMenu">
+    <dump-beer></dump-beer>
+    <!-- 必要に応じて追加のサブメニューアイテムをここに -->
   </mat-menu>
 
   <span>個人分析</span>
