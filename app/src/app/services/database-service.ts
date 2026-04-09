@@ -62,4 +62,14 @@ export class DatabaseService {
       }, { onlyOnce: true });
     });
   }
+
+  loadSake = (): Promise<any> => {
+    const dbRef = ref(this.db, '/sake');
+    return new Promise((resolve) => {
+      onValue(dbRef, (snapshot) => {
+        resolve(snapshot.val());
+      }, { onlyOnce: true });
+    });
+  }
+
 }
