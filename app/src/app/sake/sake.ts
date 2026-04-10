@@ -18,7 +18,6 @@ export class Sake implements OnInit {
 
   ngOnInit() {
     this.databaseService.loadSake().then((res: any) => {
-      console.log(JSON.stringify(res));
       this.data.set(res);
     });
   }

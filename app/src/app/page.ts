@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LoginButton } from './login-button/login-button';
 import { DumpBeer } from './dump/dump-beer/dump-beer';
 import { DumpDiscussion } from './dump/dump-discussion/dump-discussion';
+import { DumpSake } from './dump/dump-sake/dump-sake';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
     MatMenuModule,
     LoginButton,
     DumpBeer,
-    DumpDiscussion
+    DumpDiscussion,
+    DumpSake
   ],
   templateUrl: './page.html',
 })
