@@ -10,7 +10,7 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/beer" >ビール</button>
     <button mat-menu-item routerLink="/sake" >日本酒</button>
-    <button mat-menu-item routerLink="/discussion" >脳内会議</button>
+    <button mat-menu-item [matMenuTriggerFor]="aiMenu" >AI検討</button>
     <button mat-menu-item [matMenuTriggerFor]="evacuationMenu">退避</button>
   </mat-menu>
   <mat-menu #evacuationMenu="matMenu">
@@ -18,6 +18,10 @@
     <button mat-menu-item><dump-discussion></dump-discussion></button>
     <button mat-menu-item><dump-sake></dump-sake></button>
     <!-- 必要に応じて追加のサブメニューアイテムをここに -->
+  </mat-menu>
+  <mat-menu #aiMenu="matMenu">
+    <button mat-menu-item routerLink="/recommend">おすすめ判定</button>
+    <button mat-menu-item routerLink="/discussion" >脳内会議</button>
   </mat-menu>
 
   <span>個人分析</span>
