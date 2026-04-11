@@ -10,8 +10,15 @@
         <mat-icon style="font-size: 16px;">send</mat-icon>
       </button>
     </div>
+
+    <div class="input-row">
+      {{ result.summary }}
+    </div>
+
   </div>
 </div>
+
+
 
 <div class="loading-overlay" *ngIf="isLoading">
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
