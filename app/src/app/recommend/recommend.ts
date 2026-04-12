@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DatabaseService } from '../services/database-service';
+import { environment } from '../../environments/environment';
 import axios from 'axios';
 
 @Component({
@@ -45,7 +46,7 @@ export class Recommend {
     this.isLoading = true;
     await this.loadProfile();
 
-    axios.post("https://kamata-portfolio.mydns.jp/extApi/aiSrc/recommend.php", {
+    axios.post(`${environment.apiBaseUrl}/extApi/aiSrc/recommend.php`, {
         "prompt": this.prompt,
         "profile": JSON.stringify(this.profile),
         "apiMode": true

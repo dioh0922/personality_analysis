@@ -12,6 +12,7 @@ const targetPath = path.join(__dirname, './src/environments/environment.ts');
 const targetPathDev = path.join(__dirname, './src/environments/environment.development.ts');
 
 const envConfigFile = `export const environment = {
+  apiBaseUrl: '${process.env.VITE_API_BASE_URL || ''}',
   firebase: {
     apiKey: '${process.env.VITE_FIREBASE_API_KEY || ''}',
     authDomain: '${process.env.VITE_FIREBASE_AUTH_DOMAIN || ''}',
