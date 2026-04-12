@@ -1,0 +1,31 @@
+<div class="container">
+
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab label="日本酒"></mat-tab>
+    <mat-tab label="ビール"></mat-tab>
+    <mat-tab label="その他"></mat-tab>
+  </mat-tab-group>
+
+  <div class="discussion-grid">
+    <div class="input-row">
+      <mat-form-field>
+        <mat-label>詳細</mat-label>
+        <textarea matInput rows="4" cols="20" [(ngModel)]="prompt"></textarea>
+      </mat-form-field>
+      <button (click)="submit()" mat-raised-button color="primary" class="submit-btn">
+        <mat-icon style="font-size: 16px;">send</mat-icon>
+      </button>
+    </div>
+
+    <div class="input-row">
+      {{ result.summary }}
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="loading-overlay" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>

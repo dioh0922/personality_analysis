@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Judge } from './judge/judge';
 import { DatabaseService } from '../services/database-service';
+import { environment } from '../../environments/environment';
 import axios from 'axios';
 
 
@@ -42,7 +43,7 @@ export class Discussion {
 
   submit = () => {
     this.isLoading = true;
-    axios.post("https://kamata-portfolio.mydns.jp/extApi/aiSrc/discussion.php", {
+    axios.post(`${environment.apiBaseUrl}/extApi/aiSrc/discussion.php`, {
         "prompt": this.prompt,
         "apiMode":true
     }).then((res: any) => {
