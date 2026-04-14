@@ -23,6 +23,13 @@ $dark-theme: mat.define-theme((
   ),
 ));
 
+$soft-theme: mat.define-theme((
+  color: (
+    primary: mat.$violet-palette,
+    tertiary: mat.$rose-palette,
+  ),
+));
+
 html {
   height: 100%;
 }
@@ -40,8 +47,59 @@ html {
 }
 
 .soft-theme {
-  @include mat.all-component-themes($light-theme);
+  @include mat.all-component-themes($soft-theme);
   color-scheme: light;
+  
+  --mat-sys-surface: #fdfaf6; /* Warm cream surface */
+  --mat-sys-on-surface: #4a4440;
+  --mat-sys-primary: #7e57c2; /* Lavender Primary */
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-secondary-container: #ede7f6; /* Very light purple */
+  --mat-sys-on-secondary-container: #311b92;
+
+  /* Reference image colors + Semantic colors */
+  --soft-hero-bg: #ece9f1;
+  --soft-hero-text: #4527a0;
+  --soft-item-bg: #f5f2eb;
+  
+  --soft-success: #66bb6a;
+  --soft-warning: #ffa726;
+  --soft-error: #ef5350;
+  
+  --soft-agree: #7e57c2;
+  --soft-disagree: #d32f2f;
+
+  /* Force rounded buttons */
+  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-outlined-button {
+    border-radius: 9999px !important;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* Soften cards to match reference */
+  .mat-mdc-card {
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    border: none !important;
+  }
+
+  .mat-toolbar {
+    background: rgba(253, 250, 246, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(126, 87, 194, 0.1);
+    color: #4527a0 !important;
+    height: 64px !important;
+  }
+
+  .agree {
+    color: var(--soft-agree) !important;
+  }
+
+  .disagree {
+    color: var(--soft-disagree) !important;
+  }
 }
 
 body {

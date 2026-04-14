@@ -30,7 +30,7 @@ import { ThemeService } from './services/theme.service';
   templateUrl: './page.html',
 })
 export class Page {
-  protected readonly title = signal('app');
+  protected readonly title = signal('パーソナル分析');
   private readonly themeService = inject(ThemeService);
 
   constructor() {

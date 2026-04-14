@@ -1,5 +1,8 @@
-<mat-card class="card">
+<mat-card class="card" [ngClass]="{ 'agree-card': agree, 'disagree-card': !agree }">
   <mat-card-header>
+    <div mat-card-avatar class="status-avatar">
+      <mat-icon>{{ agree ? 'sentiment_satisfied' : 'sentiment_dissatisfied' }}</mat-icon>
+    </div>
     <mat-card-title
       [ngClass]="{
         'agree': agree,
@@ -7,16 +10,17 @@
       }"
     >
       {{ agree ? '賛成' : '反対' }}
-      <mat-icon>
-        {{ agree ? 'thumb_up' : 'thumb_down' }}
-      </mat-icon>
     </mat-card-title>
   </mat-card-header>
 
-  <mat-card-content *ngFor="let item of summaryList">
-    <div class="multiline">
-      {{ item }}
+  <mat-card-content>
+    <div class="content-wrapper">
+      @for (item of summaryList; track $index) {
+        <div class="summary-item">
+          <mat-icon class="bullet-icon">chevron_right</mat-icon>
+          <span class="item-text">{{ item }}</span>
+        </div>
+      }
     </div>
   </mat-card-content>
-
 </mat-card>

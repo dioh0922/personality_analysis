@@ -1,16 +1,83 @@
-.agree {
-  color: #2e7d32;   /* 緑 */
-}
-
-.disagree {
-  color: #c62828;   /* 赤 */
-}
-
+/* Base Styles (Inorganic / Light Theme default) */
 .card {
-  min-width: 0;
+  border-radius: 4px !important;
+  margin-bottom: 16px;
+  background: white !important;
+  border-left: none !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
 }
 
-.multiline {
-  white-space: pre-line;
+.status-avatar { display: none; }
+.bullet-icon { display: none; }
+
+.agree { color: green; }
+.disagree { color: red; }
+
+/* Soft Theme Overrides (Organic / Personal) */
+:host-context(.soft-theme) {
+  .card {
+    flex: 0 0 320px;
+    max-height: 400px;
+    border-radius: 20px !important;
+    border-left: 8px solid transparent !important;
+    margin-bottom: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      flex: 1 1 100%;
+      max-height: none;
+      margin-bottom: 24px;
+    }
+  }
+
+  .status-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .status-avatar mat-icon { font-size: 32px; width: 32px; height: 32px; }
+
+  .agree { color: var(--soft-agree, #7e57c2) !important; font-weight: 700 !important; font-size: 1.25rem !important; }
+  .disagree { color: var(--soft-disagree, #d32f2f) !important; font-weight: 700 !important; font-size: 1.25rem !important; }
+
+  .agree-card { border-left-color: var(--soft-agree, #7e57c2) !important; }
+  .disagree-card { border-left-color: var(--soft-disagree, #d32f2f) !important; }
+
+  .bullet-icon {
+    display: block;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #7e57c2;
+    opacity: 0.7;
+    padding-top: 2px;
+  }
+
+  .card mat-card-content { overflow-y: auto; flex-grow: 1; }
+  .card mat-card-content::-webkit-scrollbar { width: 4px; }
+  .card mat-card-content::-webkit-scrollbar-thumb { background: rgba(126, 87, 194, 0.2); border-radius: 10px; }
 }
 
+.content-wrapper {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.item-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a4440;
+}

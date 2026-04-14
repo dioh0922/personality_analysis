@@ -6,7 +6,7 @@ export type Theme = 'light-theme' | 'dark-theme' | 'soft-theme';
   providedIn: 'root'
 })
 export class ThemeService {
-  private currentTheme = signal<Theme>('light-theme');
+  private currentTheme = signal<Theme>('soft-theme');
 
   get theme() {
     return this.currentTheme.asReadonly();
