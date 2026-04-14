@@ -1,5 +1,5 @@
 /* Base Styles (Inorganic / Light Theme default) */
-.sake-summary-container {
+.beer-summary-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -9,7 +9,7 @@
 }
 
 .summary-header-card {
-  border-radius: 4px !important;
+  border-radius: 4px !important; /* Boxy */
 }
 
 .header-content {
@@ -19,8 +19,13 @@
   margin-bottom: 16px;
 }
 
-.profile-icon { display: none; }
-.sub-label { display: none; }
+.profile-icon {
+  display: none; /* Hide in inorganic version */
+}
+
+.sub-label {
+  display: none; /* Hide in inorganic version */
+}
 
 .spec-chips {
   display: flex;
@@ -36,7 +41,9 @@
   gap: 8px;
 }
 
-.chip-label::after { content: ":"; }
+.chip-label::after {
+  content: ":";
+}
 
 .recommendations-grid {
   display: grid;
@@ -52,11 +59,13 @@
   gap: 8px;
 }
 
-.status-icon { display: none; }
+.status-icon {
+  display: none; /* Hide in inorganic version */
+}
 
 /* Soft Theme Overrides (Organic / Personal) */
 :host-context(.soft-theme) {
-  .sake-summary-container { gap: 32px; padding: 24px; }
+  .beer-summary-container { gap: 32px; padding: 24px; }
   
   .summary-header-card {
     background: var(--soft-hero-bg) !important;

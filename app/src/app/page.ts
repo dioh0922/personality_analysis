@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,8 @@ import { DumpBeer } from './dump/dump-beer/dump-beer';
 import { DumpDiscussion } from './dump/dump-discussion/dump-discussion';
 import { DumpSake } from './dump/dump-sake/dump-sake';
 import { RouterModule } from '@angular/router';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +24,18 @@ import { RouterModule } from '@angular/router';
     LoginButton,
     DumpBeer,
     DumpDiscussion,
-    DumpSake
+    DumpSake,
+    ThemeSwitcherComponent
   ],
   templateUrl: './page.html',
 })
 export class Page {
-  protected readonly title = signal('app');
+  protected readonly title = signal('パーソナル分析');
+  private readonly themeService = inject(ThemeService);
+
+  constructor() {
+    effect(() => {
+      document.body.className = this.themeService.theme();
+    });
+  }
 }

@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'sake-summary',
-  imports: [MatGridListModule, MatListModule],
+  imports: [MatCardModule, MatListModule, MatIconModule],
   templateUrl: './sake-summary.html',
   styleUrl: './sake-summary.css',
 })

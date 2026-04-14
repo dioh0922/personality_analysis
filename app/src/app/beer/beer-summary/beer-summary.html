@@ -1,41 +1,72 @@
+<div class="beer-summary-container">
+  <mat-card class="summary-header-card">
+    <mat-card-content>
+      <div class="header-content">
+        <div class="profile-icon">
+          <mat-icon>favorite</mat-icon>
+        </div>
+        <div class="header-text">
+          <h2>{{ data?.preference_type_definition?.summary }}</h2>
+          <span class="sub-label">Your Core Profile</span>
+        </div>
+      </div>
+      
+      <div class="spec-chips">
+        <div class="spec-chip-group">
+          <span class="chip-label">ABV</span>
+          <span class="chip-value">{{ data?.preferred_numeric_ranges?.abv }}</span>
+        </div>
+        <div class="spec-chip-group">
+          <span class="chip-label">IBU</span>
+          <span class="chip-value">{{ data?.preferred_numeric_ranges?.ibu }}</span>
+        </div>
+        <div class="spec-chip-group">
+          <span class="chip-label">SRM</span>
+          <span class="chip-value">{{ data?.preferred_numeric_ranges?.srm }}</span>
+        </div>
+        <div class="spec-chip-group">
+          <span class="chip-label">FINISH</span>
+          <span class="chip-value">{{ data?.preferred_numeric_ranges?.finish_type }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-<mat-grid-list cols="12" rowHeight="100px">
-  <mat-grid-tile [colspan]="12" [rowspan]="1">{{ data?.preference_type_definition?.summary }}</mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1">abv: {{ data?.preferred_numeric_ranges?.abv }}</mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1">ibu: {{ data?.preferred_numeric_ranges?.ibu }}</mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1">srm: {{ data?.preferred_numeric_ranges?.srm }}</mat-grid-tile>
-  <mat-grid-tile [colspan]="3" [rowspan]="1">type: {{ data?.preferred_numeric_ranges?.finish_type }}</mat-grid-tile>
-
-  <mat-grid-tile [colspan]="4" [rowspan]="4">
-    <div>
-      <h3>好評</h3>
-      <mat-list role="list">
+  <div class="recommendations-grid">
+    <div class="recommendation-column best">
+      <h3 class="column-title"><mat-icon>sentiment_satisfied</mat-icon> 好評な傾向</h3>
+      <div class="item-list">
         @for (item of data?.evaluation_trends?.high_rating_zone; track $index) {
-          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+          <div class="list-item">
+            <mat-icon class="status-icon">check_circle</mat-icon>
+            {{ item }}
+          </div>
         }
-      </mat-list>
+      </div>
     </div>
-  </mat-grid-tile>
 
-  <mat-grid-tile [colspan]="4" [rowspan]="4">
-    <div>
-      <h3>条件付き</h3>
-      <mat-list role="list">
+    <div class="recommendation-column conditional">
+      <h3 class="column-title"><mat-icon>sentiment_neutral</mat-icon> 条件付き</h3>
+      <div class="item-list">
         @for (item of data?.evaluation_trends?.conditional_rating; track $index) {
-          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+          <div class="list-item">
+            <mat-icon class="status-icon">help</mat-icon>
+            {{ item }}
+          </div>
         }
-      </mat-list>
+      </div>
     </div>
-  </mat-grid-tile>
 
-  <mat-grid-tile [colspan]="4" [rowspan]="4">
-    <div>
-      <h3>不評</h3>
-      <mat-list role="list">
+    <div class="recommendation-column not-recommended">
+      <h3 class="column-title"><mat-icon>sentiment_dissatisfied</mat-icon> 不評な傾向</h3>
+      <div class="item-list">
         @for (item of data?.evaluation_trends?.low_rating_tendency; track $index) {
-          <mat-list-item role="listitem">{{ item }}</mat-list-item>
+          <div class="list-item">
+            <mat-icon class="status-icon">cancel</mat-icon>
+            {{ item }}
+          </div>
         }
-      </mat-list>
+      </div>
     </div>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>

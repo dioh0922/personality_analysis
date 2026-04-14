@@ -6,32 +6,106 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+@include mat.core();
+
+$light-theme: mat.define-theme((
+  color: (
+    primary: mat.$cyan-palette,
+    tertiary: mat.$orange-palette,
+  ),
+));
+
+$dark-theme: mat.define-theme((
+  color: (
+    primary: mat.$cyan-palette,
+    tertiary: mat.$orange-palette,
+    theme-type: dark,
+  ),
+));
+
+$soft-theme: mat.define-theme((
+  color: (
+    primary: mat.$violet-palette,
+    tertiary: mat.$rose-palette,
+  ),
+));
+
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      primary: mat.$cyan-palette,
-      tertiary: mat.$orange-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+}
+
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+  color-scheme: light;
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+  color-scheme: dark;
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+.soft-theme {
+  @include mat.all-component-themes($soft-theme);
+  color-scheme: light;
+  
+  --mat-sys-surface: #fdfaf6; /* Warm cream surface */
+  --mat-sys-on-surface: #4a4440;
+  --mat-sys-primary: #7e57c2; /* Lavender Primary */
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-secondary-container: #ede7f6; /* Very light purple */
+  --mat-sys-on-secondary-container: #311b92;
+
+  /* Reference image colors + Semantic colors */
+  --soft-hero-bg: #ece9f1;
+  --soft-hero-text: #4527a0;
+  --soft-item-bg: #f5f2eb;
+  
+  --soft-success: #66bb6a;
+  --soft-warning: #ffa726;
+  --soft-error: #ef5350;
+  
+  --soft-agree: #7e57c2;
+  --soft-disagree: #d32f2f;
+
+  /* Force rounded buttons */
+  .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-outlined-button {
+    border-radius: 9999px !important;
+    text-transform: none;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* Soften cards to match reference */
+  .mat-mdc-card {
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    border: none !important;
+  }
+
+  .mat-toolbar {
+    background: rgba(253, 250, 246, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(126, 87, 194, 0.1);
+    color: #4527a0 !important;
+    height: 64px !important;
+  }
+
+  .agree {
+    color: var(--soft-agree) !important;
+  }
+
+  .disagree {
+    color: var(--soft-disagree) !important;
+  }
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
   margin: 0;
   height: 100%;
+  font: var(--mat-sys-body-medium);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
