@@ -13,8 +13,9 @@ import { environment } from '../../environments/environment';
 import axios from 'axios';
 
 interface TodoListItem {
-  priority: string;
+  priority: number;
   reason: string;
+  title:string;
 }
 
 @Component({
@@ -33,7 +34,6 @@ interface TodoListItem {
   ],
   templateUrl: './todo.html',
   styleUrl: './todo.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Todo {
   constructor(
@@ -44,16 +44,20 @@ export class Todo {
   protected summary: string = "";
   protected list: TodoListItem[] = [];
 
+  listByPriority(priority: number): TodoListItem[] {
+    return this.list.filter(item => item.priority === priority);
+  }
+
   submit = () => {
     this.isLoading = true;
-    axios.get(`${environment.apiBaseUrl}/extApi/aiSrc/todo.php`, {
-    }).then((res: any) => {
+    axios.get(`${environment.apiBaseUrl}/extApi/aiSrc/todo.php`)
+    .then((res: any) => {
       this.summary = res.data.summary;
       this.list = res.data.todo;
     }).catch((er: any) => {
       this.snackBar.open(er.message || "エラーが発生しました", "閉じる", {duration: 3000});
     }).finally(() => {
-        this.isLoading = false;
+      this.isLoading = false;
     });
   }
 }

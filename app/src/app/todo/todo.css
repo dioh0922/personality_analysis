@@ -10,6 +10,25 @@
   gap: 24px;
 }
 
+.todo-grid-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .todo-grid-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
 .input-row {
   display: flex;
   justify-content: flex-end;

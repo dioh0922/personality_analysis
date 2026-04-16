@@ -1,37 +1,43 @@
 <div class="container">
   <div class="todo-grid">
     <div class="input-row">
-      <button (click)="submit()" mat-raised-button color="primary" class="submit-btn" [disabled]="isLoading()">
+      <button (click)="submit()" mat-raised-button color="primary" class="submit-btn" [disabled]="isLoading">
         <mat-icon>send</mat-icon>
         <span>更新</span>
       </button>
     </div>
 
-    @if (summary().length > 0) {
-      <div class="summary-section">
-        <mat-card class="summary-card">
-          <mat-card-content>
-            <p>{{ summary() }}</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    }
+    <div *ngIf="summary.length > 0"class="summary-section">
+      <mat-card class="summary-card">
+        <mat-card-content>
+          <p>{{ summary }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
-    @if (list().length > 0) {
-      <div class="list-section">
-        <h2 class="section-title">TODOリスト</h2>
+    <div class="todo-grid-columns" *ngIf="list.length > 0">
+      <div class="column">
+        <h2 class="section-title">高優先度 (3)</h2>
         <div class="items-container">
-          @for (item of list(); track item.reason) {
-            <todo-item [priority]="item.priority" [reason]="item.reason"></todo-item>
-          }
+          <todo-item *ngFor="let item of listByPriority(3)" [title]="item.title" [priority]="item.priority" [reason]="item.reason"></todo-item>
         </div>
       </div>
-    }
+      <div class="column">
+        <h2 class="section-title">中優先度 (2)</h2>
+        <div class="items-container">
+          <todo-item *ngFor="let item of listByPriority(2)" [title]="item.title" [priority]="item.priority" [reason]="item.reason"></todo-item>
+        </div>
+      </div>
+      <div class="column">
+        <h2 class="section-title">低優先度 (1)</h2>
+        <div class="items-container">
+          <todo-item *ngFor="let item of listByPriority(1)" [title]="item.title" [priority]="item.priority" [reason]="item.reason"></todo-item>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-@if (isLoading()) {
-  <div class="loading-overlay">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
-}
+<div class="loading-overlay" *ngIf="isLoading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>

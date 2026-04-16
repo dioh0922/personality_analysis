@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 
@@ -9,6 +9,8 @@ import { MatChipsModule } from '@angular/material/chips';
   styleUrl: './todo-item.css',
 })
 export class TodoItem {
-  priority = input<string>();
-  reason = input<string>();
+  @Input() priority: number = 0;
+  @Input() reason: string = "";
+  @Input() title: string = "";
+
 }

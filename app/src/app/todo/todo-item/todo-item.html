@@ -1,15 +1,16 @@
 <mat-card class="todo-card">
   <mat-card-header>
-    <div mat-card-avatar class="priority-indicator" [class]="priority() === '高' ? 'high' : (priority() === '中' ? 'medium' : 'low')"></div>
+    <div mat-card-avatar class="priority-indicator" [class]="priority === 3 ? 'high' : (priority === 2 ? 'medium' : 'low')"></div>
     <mat-card-title>
       <mat-chip-set>
-        <mat-chip [class]="priority() === '高' ? 'priority-high' : (priority() === '中' ? 'priority-medium' : 'priority-low')">
-          {{ priority() }}
+        <mat-chip [class]="priority === 3 ? 'priority-high' : (priority === 2 ? 'priority-medium' : 'priority-low')">
+          {{ priority }}
         </mat-chip>
       </mat-chip-set>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p class="reason-text">{{ reason() }}</p>
+    <p class="reason-text">{{ title }}</p>
+    {{reason}}
   </mat-card-content>
 </mat-card>
