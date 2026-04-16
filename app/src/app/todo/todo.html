@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="todo-grid">
+    <div class="input-row">
+      <button (click)="submit()" mat-raised-button color="primary" class="submit-btn" [disabled]="isLoading()">
+        <mat-icon>send</mat-icon>
+        <span>更新</span>
+      </button>
+    </div>
+
+    @if (summary().length > 0) {
+      <div class="summary-section">
+        <mat-card class="summary-card">
+          <mat-card-content>
+            <p>{{ summary() }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+    @if (list().length > 0) {
+      <div class="list-section">
+        <h2 class="section-title">TODOリスト</h2>
+        <div class="items-container">
+          @for (item of list(); track item.reason) {
+            <todo-item [priority]="item.priority" [reason]="item.reason"></todo-item>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+@if (isLoading()) {
+  <div class="loading-overlay">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}
