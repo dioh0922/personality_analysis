@@ -1,0 +1,71 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.todo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.todo-grid-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .todo-grid-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-btn {
+  padding: 0 24px;
+}
+
+.summary-card {
+  background-color: #f8f9fa;
+  border-left: 4px solid #7e57c2;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #4a4440;
+}
+
+.items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
