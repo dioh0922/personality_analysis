@@ -6,8 +6,19 @@
   .input-row {
     grid-column: 1 / -1;
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
+  }
+  .button-group {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .debug-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
   }
   .submit-btn {
     display: flex;

@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { Judge } from './judge/judge';
 import { DatabaseService } from '../services/database-service';
 import { environment } from '../../environments/environment';
+import sample from '../../resources/discussion.json';
 import axios from 'axios';
 
 
@@ -75,5 +76,12 @@ export class Discussion {
           this.isLoading = false;
         });
     }
+  }
+
+  sampleDisp = () => {
+    this.judge.agree = sample.judge.agree;
+    this.judge.summary = sample.judge.summary;
+    this.persona = sample.persona;
+    this.snackBar.open('Sample discussion loaded', 'close');
   }
 }
