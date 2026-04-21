@@ -2,10 +2,17 @@
 
 @import "tailwindcss";
 
-.content{
+html, body {
   height: 100%;
+  margin: 0;
 }
 
+.content {
+  height: calc(100% - 64px);
+  overflow: auto;
+}
+
+/* --- Soft Theme --- */
 .soft-theme {
   background: 
     radial-gradient(at 0% 0%, hsla(262, 47%, 92%, 1) 0px, transparent 50%),
@@ -16,4 +23,65 @@
 
 .soft-theme .content {
   background: transparent;
+}
+
+/* --- Dashboard Theme (Financial Trader Look) --- */
+.dashboard {
+  --terminal-bg: #0b0e11;
+  --terminal-surface: #161a1e;
+  --terminal-border: #2b2f36;
+  --terminal-text: #eaecef;
+  --terminal-text-muted: #848e9c;
+  --terminal-primary: #2962ff;
+  --terminal-up: #0ecb81;
+  --terminal-down: #f6465d;
+  --terminal-font: 'JetBrains Mono', 'Roboto Mono', monospace;
+
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  font-family: var(--terminal-font);
+}
+
+.dashboard .mat-toolbar {
+  background: var(--terminal-surface) !important;
+  border-bottom: 1px solid var(--terminal-border);
+  color: var(--terminal-text);
+  height: 48px !important;
+  min-height: 48px !important;
+}
+
+.dashboard .content {
+  background: var(--terminal-bg);
+  padding: 0;
+  height: calc(100% - 48px);
+}
+
+.dashboard * {
+  border-radius: 2px !important;
+}
+
+.dashboard ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dashboard ::-webkit-scrollbar-thumb {
+  background: var(--terminal-border);
+}
+
+/* Dashboard Menu Overlay Fix (Using body class since menus are in overlay container) */
+body.dashboard .mat-mdc-menu-panel {
+  background-color: #161a1e !important;
+  border: 1px solid #2b2f36 !important;
+  border-radius: 2px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important;
+}
+
+body.dashboard .mat-mdc-menu-item {
+  color: #eaecef !important;
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+  font-size: 12px !important;
+}
+
+body.dashboard .mat-mdc-menu-item:hover {
+  background-color: rgba(41, 98, 255, 0.1) !important;
 }
