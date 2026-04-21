@@ -1,48 +1,5 @@
-@if (themeService.theme() === 'dashboard') {
-  <div class="terminal-grid">
-    <section class="terminal-widget summary-area">
-      <div class="widget-header">SAKE OVERVIEW</div>
-      <div class="widget-content">
-        <sake-summary [data]="data()"></sake-summary>
-      </div>
-    </section>
-
-    <section class="terminal-widget analysis-area">
-      <div class="widget-header">MARKET SENTIMENT (MOCK)</div>
-      <div class="widget-content">
-        <div class="p-4 text-center text-slate-500 font-mono text-xs">
-          [ REAL-TIME SAKE TICKER: DAIGINJO +0.45% | JUNMAI -0.12% ]
-          <div class="mt-4 border border-slate-800 h-64 flex items-center justify-center">
-            <span class="animate-pulse">STREAMING ANALYSIS...</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="terminal-widget stats-area">
-      <div class="widget-header">SAKE STATISTICS</div>
-      <div class="widget-content">
-         <div class="p-4 space-y-4">
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span class="text-slate-500 text-[10px] font-bold">SMV</span>
-              <span class="text-emerald-400 font-bold">+4.0</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span class="text-slate-500 text-[10px] font-bold">ACIDITY</span>
-              <span class="text-rose-400 font-bold">1.5</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span class="text-slate-500 text-[10px] font-bold">ALCOHOL</span>
-              <span class="text-blue-400 font-bold">16.0%</span>
-            </div>
-         </div>
-      </div>
-    </section>
-  </div>
-} @else {
-  <mat-tab-group>
-    <mat-tab label="Summary">
-      <sake-summary [data]="data()"></sake-summary>
-    </mat-tab>
-  </mat-tab-group>
-}
+<mat-tab-group>
+  <mat-tab label="Summary">
+    <sake-summary [data]="data()"></sake-summary>
+  </mat-tab>
+</mat-tab-group>

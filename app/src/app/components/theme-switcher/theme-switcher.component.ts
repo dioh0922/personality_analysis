@@ -15,7 +15,6 @@ import { MatMenuModule } from '@angular/material/menu';
       <button mat-menu-item (click)="setTheme('light-theme')">ライト</button>
       <button mat-menu-item (click)="setTheme('dark-theme')">ダーク</button>
       <button mat-menu-item (click)="setTheme('soft-theme')">ソフト</button>
-      <button mat-menu-item (click)="setTheme('dashboard')">ダッシュボード</button>
     </mat-menu>
   `
 })

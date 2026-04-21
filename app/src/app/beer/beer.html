@@ -1,36 +1,11 @@
-@if (themeService.theme() === 'dashboard') {
-  <div class="terminal-grid">
-    <section class="terminal-widget summary-area">
-      <div class="widget-header">STATISTICS</div>
-      <div class="widget-content">
-        <beer-summary [data]="data()"></beer-summary>
-      </div>
-    </section>
-
-    <section class="terminal-widget graph-area">
-      <div class="widget-header">WAVEFORM ANALYSIS</div>
-      <div class="widget-content">
-        <beer-graph [hist]="data()?.waveform" [tendency]="data()?.tendency_graph"></beer-graph>
-      </div>
-    </section>
-
-    <section class="terminal-widget rank-area">
-      <div class="widget-header">ORDER RANKING</div>
-      <div class="widget-content">
-        <beer-rank [rankData]="data()?.ranking"></beer-rank>
-      </div>
-    </section>
-  </div>
-} @else {
-  <mat-tab-group>
-    <mat-tab label="Summary">
-      <beer-summary [data]="data()"></beer-summary>
-    </mat-tab>
-    <mat-tab label="Graph">
-      <beer-graph [hist]="data()?.waveform" [tendency]="data()?.tendency_graph"></beer-graph>
-    </mat-tab>
-    <mat-tab label="Rank">
-      <beer-rank [rankData]="data()?.ranking"></beer-rank>
-    </mat-tab>
-  </mat-tab-group>
-}
+<mat-tab-group>
+  <mat-tab label="Summary">
+    <beer-summary [data]="data()"></beer-summary>
+  </mat-tab>
+  <mat-tab label="Graph">
+    <beer-graph [hist]="data()?.waveform" [tendency]="data()?.tendency_graph"></beer-graph>
+  </mat-tab>
+  <mat-tab label="Rank">
+    <beer-rank [rankData]="data()?.ranking"></beer-rank>
+  </mat-tab>
+</mat-tab-group>
