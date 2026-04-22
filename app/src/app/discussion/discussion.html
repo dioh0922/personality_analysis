@@ -21,21 +21,27 @@
       </div>
     </div>
 
-    <div class="input-row">
-      <judge-summary *ngIf="judge.agree != null" [agree]="judge.agree" [summary]="judge.summary" ></judge-summary>
-    </div>
+    @if(judge.agree != null){
+      <div class="input-row">
+        <judge-summary [agree]="judge.agree" [summary]="judge.summary" ></judge-summary>
+      </div>
+    }
 
-    <div class="section-header" *ngIf="persona.length > 0">
-      <mat-icon>group</mat-icon>
-      内なる声たちの意見
-    </div>
+    @if(persona.length > 0){
+      <div class="section-header">
+        <mat-icon>group</mat-icon>
+        内なる声たちの意見
+      </div>
+      <div class="persona-grid">
+        <judge-summary *ngFor="let card of persona" [agree]="card.agree" [summary]="card.summary"></judge-summary>
+      </div>
+    }
 
-    <div class="persona-grid">
-      <judge-summary *ngFor="let card of persona" [agree]="card.agree" [summary]="card.summary"></judge-summary>
-    </div>
   </div>
 </div>
 
-<div class="loading-overlay" *ngIf="isLoading">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
+@if(isLoading){
+  <div class="loading-overlay">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}

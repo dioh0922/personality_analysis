@@ -1,11 +1,32 @@
-/* Base Styles (Inorganic / Light Theme default) */
+/* Base Styles */
 .card {
   border-radius: 4px !important;
   margin-bottom: 16px;
-  background: white !important;
+  background-color: var(--mat-card-container-background-color, white) !important;
   border-left: none !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
 }
+
+:host-context(.dark-theme) .card {
+  background-color: #1e1e1e !important;
+  color: white !important;
+}
+
+:host-context(.dark-theme) .item-text {
+  color: white !important;
+}
+
+:host-context(.dashboard) {
+  .card {
+    background-color: var(--terminal-surface) !important;
+    color: var(--terminal-text) !important;
+    border: 1px solid var(--terminal-border) !important;
+  }
+  .item-text {
+    color: var(--terminal-text) !important;
+  }
+}
+
 
 .status-avatar { display: none; }
 .bullet-icon { display: none; }

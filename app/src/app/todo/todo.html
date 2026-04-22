@@ -7,15 +7,18 @@
       </button>
     </div>
 
-    <div *ngIf="summary.length > 0"class="summary-section">
-      <mat-card class="summary-card">
-        <mat-card-content>
-          <p>{{ summary }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    @if(summary.length > 0){
+      <div class="summary-section">
+        <mat-card class="summary-card">
+          <mat-card-content>
+            <p>{{ summary }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
 
-    <div class="todo-grid-columns" *ngIf="list.length > 0">
+    @if(list.length > 0){
+    <div class="todo-grid-columns">
       <div class="column">
         <h2 class="section-title">高優先度 </h2>
         <div class="items-container">
@@ -35,9 +38,12 @@
         </div>
       </div>
     </div>
+    }
   </div>
 </div>
 
-<div class="loading-overlay" *ngIf="isLoading">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
+@if(isLoading){
+  <div class="loading-overlay" >
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}
