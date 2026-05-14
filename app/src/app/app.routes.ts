@@ -7,4 +7,5 @@ export const routes: Routes = [
   {path: 'sake', loadComponent: () => import('./sake/sake').then(m => m.Sake)},
   {path: 'recommend', loadComponent: () => import('./recommend/recommend').then(m => m.Recommend)},
   {path: 'todo', loadComponent: () => import('./todo/todo').then(m => m.Todo)},
+  {path: 'vector', loadComponent: () => import('./vector/vector').then(m => m.Vector)},
 ];
