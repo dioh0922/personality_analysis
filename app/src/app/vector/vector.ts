@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api-service';
 import { UMAP } from 'umap-js';
 import {
@@ -14,6 +15,8 @@ import {
   ScatterController,
   Filler
 } from 'chart.js';
+import AnnotationPlugin from 'chartjs-plugin-annotation';
+
 Chart.register(
   LineController,
   LineElement,
@@ -23,12 +26,13 @@ Chart.register(
   Tooltip,
   Legend,
   Filler,
-  ScatterController
+  ScatterController,
+  AnnotationPlugin
 );
 
 @Component({
   selector: 'app-vector',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './vector.html',
   styleUrl: './vector.css',
 })
@@ -44,6 +48,46 @@ export class Vector implements OnInit, AfterViewInit {
     minDist: 0.1,// 点と点の間の最低距離
   });
   protected plotData: any = [];
+  protected area: any = {
+    disp: false,
+    x: 0,
+    y: 0,
+    text: 'aa',
+    send: async() => {
+
+      const [convX, convY] = await this.apiService.convertVector();
+
+      this.area.disp = true;
+      this.area.x = convX;
+      this.area.y = convY;
+      if(!this.chart || !this.chart.options.plugins){
+        return;
+      }
+      this.chart.options.plugins.annotation = {
+        annotations: {
+          similarityRange:{
+            type: 'ellipse',
+            display: this.area.disp || false,
+            xMin: this.area.x - 0.8,
+            xMax: this.area.x + 0.8,
+            yMin: this.area.y - 0.8,
+            yMax: this.area.y + 0.8,
+            backgroundColor: 'rgba(239, 68, 68, 0.15)', // 薄い赤の塗りつぶし
+            borderColor: 'rgba(239, 68, 68, 0.5)',     // 赤い枠線
+            borderWidth: 2,
+            borderDash: [5, 5], // 点線
+            label: {
+              display: true,
+              content: '類似性範囲',
+              color: '#fff',
+              font: { size: 10 }
+            }
+          }
+        }
+      }
+      this.updateChart();
+    }
+  };
 
   constructor(private apiService: ApiService) {
   }
@@ -91,7 +135,7 @@ export class Vector implements OnInit, AfterViewInit {
         }
       }
     });
-    
+
     if (this.plotData.length > 0) {
       this.updateChart();
     }

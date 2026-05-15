@@ -1,3 +1,7 @@
 <div class="vector-container">
+  <div>
+    <input type="text" [(ngModel)]="area.text">
+    <button (click)="area.send()">send</button>
+  </div>
   <canvas #vectorChart></canvas>
 </div>

@@ -36,6 +36,7 @@
     "@angular/router": "^20.0.0",
     "axios": "^1.13.6",
     "chart.js": "^4.5.1",
+    "chartjs-plugin-annotation": "^3.1.0",
     "dotenv": "^17.2.3",
     "firebase": "^11.10.0",
     "ng2-charts": "^8.0.0",
