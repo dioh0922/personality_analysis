@@ -16,4 +16,15 @@ export class ApiService {
     });
     return [meta, vector];
   }
+
+  convertVector = async (question: string) => {
+    const formData = new FormData()
+    formData.append('question', question)
+    const result = await axios.post(`${environment.apiBaseUrl}/all_tech_list/api/ext/conv`, formData).catch((er) => {
+      console.log(er)
+      return {data: null}
+    })
+
+    return result.data
+  }
 }

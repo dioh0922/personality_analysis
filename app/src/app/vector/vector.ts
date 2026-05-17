@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../services/api-service';
+import { UmapService } from '../services/umap-service';
 import { UMAP } from 'umap-js';
 import {
   Chart,
@@ -52,14 +53,20 @@ export class Vector implements OnInit, AfterViewInit {
     disp: false,
     x: 0,
     y: 0,
-    text: 'aa',
+    text: '',
     send: async() => {
+      if(this.area.text === ''){
+        return ;
+      }
 
-      const [convX, convY] = await this.apiService.convertVector();
+      const inputEmbedding = await this.apiService.convertVector(this.area.text);
+      const neighborPoints = this.umapService.findNeighbor(this.plotData, inputEmbedding)
+      const [centerX, centerY] = this.umapService.calcCenter(neighborPoints);
+
 
       this.area.disp = true;
-      this.area.x = convX;
-      this.area.y = convY;
+      this.area.x = centerX;
+      this.area.y = centerY;
       if(!this.chart || !this.chart.options.plugins){
         return;
       }
@@ -68,10 +75,10 @@ export class Vector implements OnInit, AfterViewInit {
           similarityRange:{
             type: 'ellipse',
             display: this.area.disp || false,
-            xMin: this.area.x - 0.8,
-            xMax: this.area.x + 0.8,
-            yMin: this.area.y - 0.8,
-            yMax: this.area.y + 0.8,
+            xMin: this.area.x - 0.6,
+            xMax: this.area.x + 0.6,
+            yMin: this.area.y - 0.6,
+            yMax: this.area.y + 0.6,
             backgroundColor: 'rgba(239, 68, 68, 0.15)', // 薄い赤の塗りつぶし
             borderColor: 'rgba(239, 68, 68, 0.5)',     // 赤い枠線
             borderWidth: 2,
@@ -89,7 +96,10 @@ export class Vector implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    private umapService: UmapService
+  ) {
   }
 
   ngAfterViewInit() {
@@ -154,18 +164,19 @@ export class Vector implements OnInit, AfterViewInit {
     const embeddings = vector?.data.map((item: any) => {
       return {
         id: item.rowid,
-        embeddings: item.embedding.data
+        embeddings: item.embedding
       }
     });
 
-    this.embData = this.umap.fit(embeddings.map((e: any) => e.embeddings));
+    this.embData = this.umapService.fitData(embeddings.map((e: any) => e.embeddings));
     const plotData = meta?.data.map((m: any, index: number) => {
       return {
         id: m.id,
         name: m.projectName,
         description: m.description,
         x: this.embData[index][0],
-        y: this.embData[index][1]
+        y: this.embData[index][1],
+        rawVector: embeddings.find((e: any) => e.id === m.id)?.embeddings || []
       }
     });
     this.plotData = plotData;

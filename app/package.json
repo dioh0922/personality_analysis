@@ -39,6 +39,7 @@
     "chartjs-plugin-annotation": "^3.1.0",
     "dotenv": "^17.2.3",
     "firebase": "^11.10.0",
+    "ml-distance": "^4.0.1",
     "ng2-charts": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
