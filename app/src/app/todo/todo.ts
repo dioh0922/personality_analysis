@@ -50,7 +50,7 @@ export class Todo {
 
   submit = () => {
     this.isLoading = true;
-    axios.get(`${environment.apiBaseUrl}/extApi/aiSrc/todo.php`)
+    axios.get(`${environment.apiBaseUrl}/ext_api/api/ai/todo`)
     .then((res: any) => {
       this.summary = res.data.summary;
       this.list = res.data.todo;

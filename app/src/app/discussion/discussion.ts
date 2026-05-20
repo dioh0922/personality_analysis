@@ -44,7 +44,7 @@ export class Discussion {
 
   submit = () => {
     this.isLoading = true;
-    axios.post(`${environment.apiBaseUrl}/extApi/aiSrc/discussion.php`, {
+    axios.post(`${environment.apiBaseUrl}/ext_api/api/ai/discussion`, {
         "prompt": this.prompt,
         "apiMode":true
     }).then((res: any) => {
