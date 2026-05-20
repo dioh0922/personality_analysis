@@ -36,11 +36,14 @@
     "@angular/router": "^20.0.0",
     "axios": "^1.13.6",
     "chart.js": "^4.5.1",
+    "chartjs-plugin-annotation": "^3.1.0",
     "dotenv": "^17.2.3",
     "firebase": "^11.10.0",
+    "ml-distance": "^4.0.1",
     "ng2-charts": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "umap-js": "^1.4.0",
     "zone.js": "^0.15.1"
   },
   "devDependencies": {

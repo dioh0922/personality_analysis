@@ -46,7 +46,7 @@ export class Recommend {
     this.isLoading = true;
     await this.loadProfile();
 
-    axios.post(`${environment.apiBaseUrl}/extApi/aiSrc/recommend.php`, {
+    axios.post(`${environment.apiBaseUrl}/ext_api/api/ai/recommend`, {
         "prompt": this.prompt,
         "profile": JSON.stringify(this.profile),
         "apiMode": true
