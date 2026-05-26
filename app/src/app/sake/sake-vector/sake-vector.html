@@ -1,0 +1,18 @@
+<div>
+  <input type="text" [(ngModel)]="text">
+  <button (click)="checkSakeMatch()">確認</button>
+</div>
+
+@if(analysis){
+  {{analysis.profile}}
+  {{analysis.analysis.positive}}
+  {{analysis.analysis.negative}}
+  {{analysis.spec}}
+  {{analysis.summary}}
+}
+
+@if(isLoading){
+  <div class="loading-overlay">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+}
