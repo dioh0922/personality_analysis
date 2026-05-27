@@ -1,13 +1,26 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { VectorService } from '../../services/vector-service';
 import axios from 'axios';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'sake-vector',
-  imports: [FormsModule, MatProgressSpinnerModule],
+  imports: [
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+  ],
   templateUrl: './sake-vector.html',
   styleUrl: './sake-vector.css',
 })
