@@ -7,8 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { VectorService } from '../../services/vector-service';
-import axios from 'axios';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { SakeReview} from '../sake-review/sake-review';
 import { environment } from '../../../environments/environment';
+import axios from 'axios';
 
 @Component({
   selector: 'sake-vector',
@@ -20,6 +23,8 @@ import { environment } from '../../../environments/environment';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   templateUrl: './sake-vector.html',
   styleUrl: './sake-vector.css',
@@ -27,17 +32,28 @@ import { environment } from '../../../environments/environment';
 export class SakeVector {
   protected isLoading = false
   protected text = ''
+  protected tags: string[] = []
   protected analysis: any = null
-  constructor(private vectorService: VectorService) {}
 
-  checkSakeMatch(){
+  constructor(
+    private vectorService: VectorService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
+
+  checkSakeMatch = () => {
     this.isLoading = true
     axios.post(`${environment.apiBaseUrl}/ext_api/api/vector/match`, {
       text: this.text
     }).then(res => {
       this.isLoading = false
-      console.log(res.data)
       this.analysis = res.data.summary
     })
+  }
+
+  openDialog = () => {
+    const dialogRef = this.dialog.open(SakeReview);
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

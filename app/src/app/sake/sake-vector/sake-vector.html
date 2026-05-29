@@ -6,6 +6,10 @@
         <textarea matInput rows="5" [(ngModel)]="text" placeholder="例：マスカットのような爽やかな香りと、美山錦らしいキレを併せ持つ純米大吟醸です。"></textarea>
       </mat-form-field>
       <div class="actions">
+        <button mat-stroked-button color="primary" (click)="openDialog()" class="review-button">
+          <mat-icon>rate_review</mat-icon>
+          レビュー追加
+        </button>
         <button mat-raised-button color="primary" (click)="checkSakeMatch()" [disabled]="!text || isLoading">
           <mat-icon>analytics</mat-icon>
           相性を確認する

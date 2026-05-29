@@ -54,6 +54,11 @@ textarea.mat-mdc-input-element {
   display: flex;
   justify-content: flex-end;
   margin-top: 8px;
+  gap: 12px;
+}
+
+.review-button {
+  margin-right: 4px;
 }
 
 .analysis-results {
