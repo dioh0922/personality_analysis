@@ -1,0 +1,5 @@
+@for(item of reviews; track item){
+  <div>
+    {{item.sake_name}}：{{item.score}} <button (click)="delete(item.id)">削除</button>
+  </div>
+}
