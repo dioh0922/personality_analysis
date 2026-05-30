@@ -1,0 +1,27 @@
+<div class="history-container">
+  <h3>推薦履歴</h3>
+  <mat-accordion>
+    @for(item of history; track item.id){
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>history</mat-icon>
+            <span class="prompt-text">{{item.question || '無題のプロンプト'}}</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{item.create_at | date:'yyyy/MM/dd HH:mm'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="result-content">
+          @if(item.prompt != ''){
+            <p><strong>質問内容:</strong></p>
+            <div class="summary-text">{{item.question}}</div>
+          }
+          <p><strong>推薦内容:</strong></p>
+          <div class="summary-text">{{item.parse?.summary || item.result}}</div>
+        </div>
+      </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

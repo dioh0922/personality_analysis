@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DatabaseService } from '../services/database-service';
+import { RecommendHistory } from './recommend-history/recommend-history';
 import { environment } from '../../environments/environment';
 import axios from 'axios';
 
@@ -25,7 +26,8 @@ import axios from 'axios';
     MatProgressSpinnerModule,
     MatTabsModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RecommendHistory
   ],
   templateUrl: './recommend.html',
   styleUrl: './recommend.css',
