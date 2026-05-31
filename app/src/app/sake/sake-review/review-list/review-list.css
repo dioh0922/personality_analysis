@@ -1,0 +1,22 @@
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.review-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sake-name {
+  font-weight: 500;
+}
+
+.score {
+  font-size: 0.9em;
+  color: #666;
+}

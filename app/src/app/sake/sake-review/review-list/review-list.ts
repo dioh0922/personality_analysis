@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'sake-review-list',
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './review-list.html',
   styleUrl: './review-list.css',
 })

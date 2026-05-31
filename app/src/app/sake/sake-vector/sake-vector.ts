@@ -52,7 +52,10 @@ export class SakeVector {
   }
 
   openDialog = () => {
-    const dialogRef = this.dialog.open(SakeReview);
+    const dialogRef = this.dialog.open(SakeReview, {
+      maxWidth: '95vw',
+      maxHeight: '90vh'
+    });
     dialogRef.afterClosed().subscribe(result => {
     });
   }

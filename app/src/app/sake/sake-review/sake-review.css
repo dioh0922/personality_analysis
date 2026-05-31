@@ -1,9 +1,14 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .review-form-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding-top: 16px;
-  min-width: 400px;
+  width: 100%;
 }
 
 .full-width {
@@ -18,6 +23,34 @@
 
 .half-width {
   flex: 1;
+}
+
+.dialog-part {
+  margin-top: 24px;
+  width: 100%;
+}
+
+@media (min-width: 800px) {
+  mat-dialog-content {
+    flex-direction: row;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .review-form-container {
+    flex: 1;
+    min-width: 450px;
+    padding-top: 0;
+  }
+
+  .dialog-part {
+    flex: 1;
+    margin-top: 0;
+    min-width: 300px;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 24px;
+    height: 100%;
+  }
 }
 
 mat-dialog-actions {
