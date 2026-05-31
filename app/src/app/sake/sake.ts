@@ -1,10 +1,11 @@
 import { Component, signal, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SakeSummary } from './sake-summary/sake-summary';
+import { SakeVector } from './sake-vector/sake-vector';
 import { DatabaseService } from '../services/database-service';
 @Component({
   selector: 'app-sake',
-  imports: [MatTabsModule, SakeSummary],
+  imports: [MatTabsModule, SakeSummary, SakeVector],
   templateUrl: './sake.html',
   styleUrl: './sake.css',
 })

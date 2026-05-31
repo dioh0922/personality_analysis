@@ -1,0 +1,90 @@
+<div class="sake-vector-container">
+  <mat-card class="input-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>日本酒の解説文を入力してください</mat-label>
+        <textarea matInput rows="5" [(ngModel)]="text" placeholder="例：マスカットのような爽やかな香りと、美山錦らしいキレを併せ持つ純米大吟醸です。"></textarea>
+      </mat-form-field>
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="openDialog()" class="review-button">
+          <mat-icon>rate_review</mat-icon>
+          レビュー追加
+        </button>
+        <button mat-raised-button color="primary" (click)="checkSakeMatch()" [disabled]="!text || isLoading">
+          <mat-icon>analytics</mat-icon>
+          相性を確認する
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  @if(analysis){
+    <div class="analysis-results">
+      <mat-card class="summary-card">
+        <mat-card-header>
+          <div mat-card-avatar class="summary-icon">
+            <mat-icon>stars</mat-icon>
+          </div>
+          <mat-card-title>分析要約</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="summary-text">{{analysis.summary}}</p>
+            @if(analysis.alert){
+              <div class="alert-area">
+                <mat-icon>warning</mat-icon>
+                <span>{{analysis.alert}}</span>
+              </div>
+            }
+        </mat-card-content>
+      </mat-card>
+
+      <div class="details-grid">
+        <mat-card class="detail-item">
+          <mat-card-header>
+            <mat-card-title>プロフィール</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{analysis.profile}}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="detail-item">
+          <mat-card-header>
+            <mat-card-title>スペック分析</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{analysis.spec}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="feedback-grid">
+        <mat-card class="feedback-item positive">
+          <mat-card-header>
+            <mat-icon color="primary">thumb_up</mat-icon>
+            <mat-card-title>期待できる点</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{analysis.analysis.positive}}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="feedback-item negative">
+          <mat-card-header>
+            <mat-icon color="warn">report_problem</mat-icon>
+            <mat-card-title>懸念される点</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{analysis.analysis.negative}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  }
+
+  @if(isLoading){
+    <div class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  }
+</div>

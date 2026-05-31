@@ -1,0 +1,186 @@
+/* Global CSS Reset (Tailwind etc.) Fix for Material Form Field */
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-style: none !important;
+}
+
+::ng-deep .mdc-notched-outline__leading {
+  border-left: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+  border-top: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+  border-bottom: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+}
+
+::ng-deep .mdc-notched-outline__notch {
+  border-top: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+  border-bottom: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+}
+
+::ng-deep .mdc-notched-outline__trailing {
+  border-right: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+  border-top: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+  border-bottom: 1px solid var(--mdc-outlined-text-field-outline-color, rgba(0, 0, 0, 0.38)) !important;
+}
+
+::ng-deep .mat-mdc-form-field-focus-indicator {
+  border: none !important;
+}
+
+textarea.mat-mdc-input-element {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sake-vector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.input-card {
+  margin-bottom: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.review-button {
+  margin-right: 4px;
+}
+
+.analysis-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.summary-card {
+  border-left: 6px solid #6200ea;
+}
+
+.summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6200ea;
+  color: white;
+  border-radius: 50%;
+}
+
+.summary-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.alert-area {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background-color: #fff3e0;
+  border-left: 4px solid #ff9800;
+  border-radius: 4px;
+  color: #e65100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.alert-area mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.details-grid, .feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.feedback-item.positive {
+  border-top: 4px solid #2e7d32;
+}
+
+.feedback-item.negative {
+  border-top: 4px solid #c62828;
+}
+
+.feedback-item mat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Soft Theme Overrides */
+:host-context(.soft-theme) {
+  .sake-vector-container {
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .input-card, .summary-card, .detail-item, .feedback-item {
+    border-radius: 24px !important;
+    border: none !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .summary-card {
+    background: var(--soft-hero-bg) !important;
+    color: var(--soft-hero-text) !important;
+  }
+  
+  .summary-icon {
+    background: white;
+    color: #6200ea;
+  }
+
+  .feedback-item.positive { background: rgba(102, 187, 106, 0.1) !important; }
+  .feedback-item.negative { background: rgba(239, 83, 80, 0.1) !important; }
+
+  .loading-overlay {
+    background: rgba(255, 250, 247, 0.6);
+  }
+}
+
+@media (max-width: 768px) {
+  .details-grid, .feedback-grid {
+    grid-template-columns: 1fr;
+  }
+}

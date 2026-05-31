@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>酒レビューを投稿</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="review-form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>銘柄名</mat-label>
+      <input matInput [(ngModel)]="name" placeholder="例：獺祭">
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>スコア (0-10)</mat-label>
+        <input matInput [(ngModel)]="score" type="number" min="0" max="10" step="1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>印象</mat-label>
+        <mat-select [(ngModel)]="sentiment">
+          @for(item of sentimentArray; track item){
+            <mat-option [value]="item">{{item}}</mat-option>
+          }
+        </mat-select>
+
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>理由</mat-label>
+      <input matInput [(ngModel)]="reason" placeholder="味の感想など">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>レビュー本文</mat-label>
+      <textarea matInput [(ngModel)]="review" rows="4" placeholder="詳細なレビューを入力してください"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>タグ（カンマ区切り）</mat-label>
+      <mat-select [formControl]="tags" multiple>
+        @for(item of tagArray; track item){
+          <mat-option [value]="item.value">{{item.label}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="dialog-part">
+    <h3>過去のレビュー一覧</h3>
+    <sake-review-list [reviews]="reviewList" (deleteEvent)="delete($event)"></sake-review-list>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()" color="primary" [disabled]="isLoading">
+    キャンセル
+  </button>
+  <button mat-raised-button (click)="submit()" color="primary" [disabled]="isLoading">
+    送信
+  </button>
+</mat-dialog-actions>

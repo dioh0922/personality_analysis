@@ -1,0 +1,9 @@
+@for(item of reviews; track item){
+  <div class="review-item">
+    <div class="review-info">
+      <span class="sake-name">{{item.sake_name}}</span>
+      <span class="score">スコア: {{item.score}} / 10</span>
+    </div>
+    <button mat-button color="warn" (click)="delete(item.id)">削除</button>
+  </div>
+}
