@@ -2,9 +2,10 @@
   <mat-list class="fixed-row">
     <mat-list-item>
       @if (isEdit) {
-        <button mat-stroked-button color="warn" (click)="updateOrder()">
-          保存
-        </button>
+        <button mat-stroked-button (click)="cancelEdit()">キャンセル</button>
+        <button mat-stroked-button color="warn" (click)="updateOrder()">保存</button>
+      } @else {
+        <button mat-stroked-button (click)="startEdit()">並べ替え</button>
       }
     </mat-list-item>
   </mat-list>
@@ -13,7 +14,7 @@
     class="scroll-area"
     cdkDropList (cdkDropListDropped)="drop($event)">
     @for (item of formattedData; track item) {
-      <mat-list-item cdkDrag>
+      <mat-list-item cdkDrag [cdkDragDisabled]="!isEdit">
         <div matListItemTitle>
           {{ item?.id }}位：{{ item?.label }}
           <button
