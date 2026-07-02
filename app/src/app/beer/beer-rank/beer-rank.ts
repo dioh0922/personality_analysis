@@ -41,6 +41,7 @@ import { AddRankDialog } from './add-rank-dialog/add-rank-dialog';
 export class BeerRank {
   protected formattedData: { id: number; label: string }[] = [];
   protected isEdit = false;
+  private snapshot: { id: number; label: string }[] = [];
 
   constructor(
     private databaseService: DatabaseService,
@@ -49,48 +50,57 @@ export class BeerRank {
   ) {
   }
 
+  startEdit = () => {
+    this.snapshot = this.formattedData.map(item => ({ ...item }));
+    this.isEdit = true;
+  }
+
+  cancelEdit = () => {
+    this.formattedData = this.snapshot.map(item => ({ ...item }));
+    this.isEdit = false;
+  }
+
   updateOrder = async () => {
     const data = this.formattedData.map((item, index) => {
-      // 画面表示用の順位を更新
       item.id = index + 1;
-      // DB保存用データを作成（idは0始まり）
       return { id: index, label: item.label };
     });
 
+    this.snapshot = this.formattedData.map(item => ({ ...item }));
     this.isEdit = false;
     await this.databaseService.updateRankOrder(data);
     this.snackBar.open('update success', 'close');
   }
 
   drop = (event: CdkDragDrop<string[]>) => {
-    this.isEdit = true;
     moveItemInArray(this.formattedData, event.previousIndex, event.currentIndex);
   }
 
   deleteItem = (item: any) => {
     this.formattedData.splice(item.id - 1, 1);
     this.reorderData();
-    this.isEdit = true;
+    if (!this.isEdit) {
+      this.startEdit();
+    }
   }
 
   openDialog = (item: any) => {
     const dialogRef = this.dialog.open(AddRankDialog, {
-      data: item?.id  + 1
+      data: item?.id + 1
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        // 挿入位置を計算 (idは1始まりのため -1)
+      if (result) {
         const insertIndex = result.id - 1;
-
         this.formattedData.splice(insertIndex, 0, { id: result.id, label: result.label });
         this.reorderData();
-        this.isEdit = true;
+        if (!this.isEdit) {
+          this.startEdit();
+        }
       }
     });
   }
 
   private reorderData = () => {
-    // IDを再採番して整合性を保つ
     this.formattedData.forEach((item, index) => {
       item.id = index + 1;
     });
