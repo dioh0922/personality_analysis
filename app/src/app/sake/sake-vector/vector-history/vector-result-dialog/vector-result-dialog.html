@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>マッチング結果</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="meta">
+    <mat-icon>schedule</mat-icon>
+    <span>{{ data.created_at | date:'yyyy/MM/dd HH:mm' }}</span>
+  </div>
+
+  <mat-card class="prompt-card" appearance="outlined">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>search</mat-icon>
+      <mat-card-title>プロンプト</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ data.prompt }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="result-card" appearance="outlined">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>description</mat-icon>
+      <mat-card-title>結果</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if(isJson){
+        <div class="analysis-results">
+          <mat-card class="summary-card">
+            <mat-card-header>
+              <div mat-card-avatar class="summary-icon">
+                <mat-icon>stars</mat-icon>
+              </div>
+              <mat-card-title>分析要約</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="summary-text">{{analysis.summary}}</p>
+                @if(analysis.alert){
+                  <div class="alert-area">
+                    <mat-icon>warning</mat-icon>
+                    <span>{{analysis.alert}}</span>
+                  </div>
+                }
+            </mat-card-content>
+          </mat-card>
+
+          <div class="details-grid">
+            <mat-card class="detail-item">
+              <mat-card-header>
+                <mat-card-title>プロフィール</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{analysis.profile}}</p>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="detail-item">
+              <mat-card-header>
+                <mat-card-title>スペック分析</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{analysis.spec}}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="feedback-grid">
+            <mat-card class="feedback-item positive">
+              <mat-card-header>
+                <mat-icon color="primary">thumb_up</mat-icon>
+                <mat-card-title>期待できる点</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{analysis.analysis.positive}}</p>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="feedback-item negative">
+              <mat-card-header>
+                <mat-icon color="warn">report_problem</mat-icon>
+                <mat-card-title>懸念される点</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{analysis.analysis.negative}}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="close()">閉じる</button>
+</mat-dialog-actions>

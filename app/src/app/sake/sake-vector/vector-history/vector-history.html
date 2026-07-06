@@ -1,0 +1,29 @@
+@if (isLoading) {
+  <div class="spinner-wrapper">
+    <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+  </div>
+}
+
+@if (error) {
+  <div class="error-message">{{ error }}</div>
+}
+
+@if (history.length > 0) {
+  <div class="history-list">
+    @for (item of history; track item.id) {
+      <mat-card class="history-item" appearance="outlined">
+        <mat-card-header>
+          <mat-card-subtitle>{{ item.created_at | date:'yyyy/MM/dd HH:mm' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="field result-field" (click)="openResult(item)">
+            <span class="label">プロンプト</span>
+            <p class="value prompt">{{ item.prompt }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+} @else if (!isLoading) {
+  <p class="empty-state">履歴がありません</p>
+}

@@ -10,6 +10,7 @@ import { VectorService } from '../../services/vector-service';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { SakeReview} from '../sake-review/sake-review';
+import { VectorHistory } from './vector-history/vector-history';
 import { environment } from '../../../environments/environment';
 import axios from 'axios';
 
@@ -24,7 +25,8 @@ import axios from 'axios';
     MatFormFieldModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    VectorHistory
   ],
   templateUrl: './sake-vector.html',
   styleUrl: './sake-vector.css',
@@ -48,7 +50,7 @@ export class SakeVector {
     }).then(res => {
       this.isLoading = false
       this.analysis = res.data.summary
-    })
+    });
   }
 
   openDialog = () => {
