@@ -179,6 +179,17 @@ textarea.mat-mdc-input-element {
   }
 }
 
+.history-section {
+  margin-top: 24px;
+}
+
+.history-section h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .details-grid, .feedback-grid {
     grid-template-columns: 1fr;
