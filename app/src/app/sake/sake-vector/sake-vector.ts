@@ -49,7 +49,7 @@ export class SakeVector {
       text: this.text
     }).then(res => {
       this.isLoading = false
-      this.analysis = res.data.summary
+      this.analysis = {prompt: this.text, result: JSON.stringify(res.data.summary)}
     });
   }
 

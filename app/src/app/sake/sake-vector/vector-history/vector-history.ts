@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, input, effect } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,19 +28,30 @@ export class VectorHistory implements OnInit {
   protected history: any[] = [];
   protected isLoading = false;
   protected error = '';
+  currentItem = input<any>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+    effect(() => {
+      const item = this.currentItem();
+      if(item){
+        this.openResult(item);
+      }
+    })
+  }
 
   ngOnInit() {
     this.loadHistory();
   }
 
   openResult(item: any) {
-    this.dialog.open(VectorResultDialog, {
+    const dialogRef = this.dialog.open(VectorResultDialog, {
       data: { result: item.result, prompt: item.prompt, created_at: item.created_at },
       maxWidth: '95vw',
       maxHeight: '90vh',
       width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadHistory();
     });
   }
 
