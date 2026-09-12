@@ -61,6 +61,8 @@
 
 .status-icon {
   display: none; /* Hide in inorganic version */
+  flex-shrink: 0;
+  min-width: 24px;
 }
 
 /* Soft Theme Overrides (Organic / Personal) */
@@ -83,6 +85,7 @@
     border-radius: 50%;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .sub-label { display: inline; font-size: 0.9rem; font-weight: 600; opacity: 0.8; }
@@ -111,6 +114,11 @@
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 20px;
+
+    mat-icon {
+      flex-shrink: 0;
+      min-width: 24px;
+    }
   }
 
   .recommendation-column.best .column-title { color: #2e7d32; }
@@ -130,7 +138,16 @@
   .recommendation-column.conditional .list-item { background: rgba(255, 167, 38, 0.1); color: #e65100; border-left-color: var(--soft-warning); }
   .recommendation-column.not-recommended .list-item { background: rgba(239, 83, 80, 0.1); color: #c62828; border-left-color: var(--soft-error); }
 
-  .status-icon { display: block; }
+  .status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    flex-shrink: 0;
+    min-width: 24px;
+  }
 }
 
 @media (max-width: 768px) {
