@@ -1,0 +1,115 @@
+<div class="sake-summary-container">
+  <mat-card class="summary-header-card">
+    <mat-card-content>
+      <div class="header-content">
+        <div class="profile-icon">
+          <mat-icon>favorite</mat-icon>
+        </div>
+        <div class="header-text">
+          <h2>{{ result?.profile || result?.summary }}</h2>
+          @if (result?.profile && result?.summary) {
+            <span class="sub-label">Your Core Profile: {{ result?.summary }}</span>
+          }
+        </div>
+      </div>
+
+      @if (result?.spec) {
+        <div class="spec-chips">
+          @if (isObject(result?.spec)) {
+            @if (result?.spec?.alcohol) {
+              <div class="spec-chip-group">
+                <span class="chip-label">ALC</span>
+                <span class="chip-value">{{ result?.spec?.alcohol }}</span>
+              </div>
+            }
+            @if (result?.spec?.acidity) {
+              <div class="spec-chip-group">
+                <span class="chip-label">酸度</span>
+                <span class="chip-value">{{ result?.spec?.acidity }}</span>
+              </div>
+            }
+            @if (result?.spec?.sake_meter_value) {
+              <div class="spec-chip-group">
+                <span class="chip-label">日本酒度</span>
+                <span class="chip-value">{{ result?.spec?.sake_meter_value }}</span>
+              </div>
+            }
+            @if (result?.spec?.polish_ratio) {
+              <div class="spec-chip-group">
+                <span class="chip-label">精米歩合</span>
+                <span class="chip-value">{{ result?.spec?.polish_ratio }}</span>
+              </div>
+            }
+          } @else {
+            <div class="spec-chip-group spec-full">
+              <span class="chip-label">スペック傾向</span>
+              <span class="chip-value">{{ result?.spec }}</span>
+            </div>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <div class="recommendations-grid">
+    <div class="recommendation-column best">
+      <h3 class="column-title"><mat-icon>sentiment_satisfied</mat-icon> おすすめ</h3>
+      <div class="item-list">
+        @if (isArray(result?.positive)) {
+          @for (item of result?.positive; track $index) {
+            <div class="list-item">
+              <mat-icon class="status-icon">check_circle</mat-icon>
+              {{ item }}
+            </div>
+          }
+        } @else if (result?.positive) {
+          <div class="list-item">
+            <mat-icon class="status-icon">check_circle</mat-icon>
+            {{ result?.positive }}
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (result?.detail) {
+      <div class="recommendation-column conditional">
+        <h3 class="column-title"><mat-icon>sentiment_neutral</mat-icon> 詳細</h3>
+        <div class="item-list">
+          @if (isArray(result?.detail)) {
+            @for (item of result?.detail; track $index) {
+              <div class="list-item">
+                <mat-icon class="status-icon">help</mat-icon>
+                {{ item }}
+              </div>
+            }
+          } @else {
+            <div class="list-item">
+              <mat-icon class="status-icon">help</mat-icon>
+              {{ result?.detail }}
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="recommendation-column not-recommended">
+      <h3 class="column-title"><mat-icon>sentiment_dissatisfied</mat-icon> おすすめしない</h3>
+      <div class="item-list">
+        @if (isArray(result?.negative)) {
+          @for (item of result?.negative; track $index) {
+            <div class="list-item">
+              <mat-icon class="status-icon">cancel</mat-icon>
+              {{ item }}
+            </div>
+          }
+        } @else if (result?.negative) {
+          <div class="list-item">
+            <mat-icon class="status-icon">cancel</mat-icon>
+            {{ result?.negative }}
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -6,12 +6,15 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class VectorService {
-  checkMatchSakeProfile(text: string){
+  _checkMatchSakeProfile(text: string){
     axios.post(`${environment.apiBaseUrl}/ext_api/api/vector/match`, {
       text: text
     }).then(res => {
       console.log(res);
-    })
+    });
   }
 
+  getSakeFavoriteVector = (): Promise<any> => {
+    return axios.get(`${environment.apiBaseUrl}/ext_api/api/vector/favorite`);
+  }
 }
