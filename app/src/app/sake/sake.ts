@@ -4,9 +4,10 @@ import { SakeSummary } from './sake-summary/sake-summary';
 import { SakeVector } from './sake-vector/sake-vector';
 import { DatabaseService } from '../services/database-service';
 import { VectorService } from '../services/vector-service';
+import { GeneratedSummary } from './sake-summary/generated-summary/generated-summary';
 @Component({
   selector: 'app-sake',
-  imports: [MatTabsModule, SakeSummary, SakeVector],
+  imports: [MatTabsModule, SakeSummary, SakeVector, GeneratedSummary],
   templateUrl: './sake.html',
   styleUrl: './sake.css',
 })

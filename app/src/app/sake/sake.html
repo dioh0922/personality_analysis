@@ -1,6 +1,10 @@
 <mat-tab-group>
   <mat-tab label="Summary">
-    <sake-summary [data]="data()"></sake-summary>
+    @if(generateFavorite() == null) {
+      <sake-summary [data]="data()"></sake-summary>
+    } @else {
+      <sake-generated-summary [data]="generateFavorite()"></sake-generated-summary>
+    }
   </mat-tab>
   <mat-tab label="Vector">
     <sake-vector ></sake-vector>
